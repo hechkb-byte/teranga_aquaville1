@@ -1,0 +1,34 @@
+[
+  {"model": "services.serviceinclus", "pk": 1, "fields": {"nom": "Piscine publique", "description": "Piscine commune accessible à tous les résidents", "icone": "pool", "ordre": 1}},
+  {"model": "services.serviceinclus", "pk": 2, "fields": {"nom": "Terrain de football homologué", "description": "Terrain aux normes officielles pour matchs et entraînements", "icone": "sports_soccer", "ordre": 2}},
+  {"model": "services.serviceinclus", "pk": 3, "fields": {"nom": "Terrain de basketball", "description": "Terrain de basket extérieur éclairé", "icone": "sports_basketball", "ordre": 3}},
+  {"model": "services.serviceinclus", "pk": 4, "fields": {"nom": "Salle de sport", "description": "Salle entièrement équipée avec machines et espaces cardio", "icone": "fitness_center", "ordre": 4}},
+
+  {"model": "services.tarifparcaquatique", "pk": 1, "fields": {"categorie": "enfant_05",    "prix_visiteur": 0,     "prix_resident": 0,     "gratuit": true}},
+  {"model": "services.tarifparcaquatique", "pk": 2, "fields": {"categorie": "enfant_512",   "prix_visiteur": 8000,  "prix_resident": 6400,  "gratuit": false}},
+  {"model": "services.tarifparcaquatique", "pk": 3, "fields": {"categorie": "accompagnant", "prix_visiteur": 5000,  "prix_resident": 4000,  "gratuit": false}},
+  {"model": "services.tarifparcaquatique", "pk": 4, "fields": {"categorie": "adolescent",   "prix_visiteur": 12000, "prix_resident": 9600,  "gratuit": false}},
+  {"model": "services.tarifparcaquatique", "pk": 5, "fields": {"categorie": "adulte",       "prix_visiteur": 15000, "prix_resident": 12000, "gratuit": false}},
+  {"model": "services.tarifparcaquatique", "pk": 6, "fields": {"categorie": "toboggan",     "prix_visiteur": 5000,  "prix_resident": 4000,  "gratuit": false}},
+  {"model": "services.tarifparcaquatique", "pk": 7, "fields": {"categorie": "vip",          "prix_visiteur": 10000, "prix_resident": 8000,  "gratuit": false}},
+
+  {"model": "services.soinspa", "pk": 1,  "fields": {"type_soin": "soin", "nom": "Massage relaxant", "duree": "30 min", "prix_teranga": 25000, "prix_resident": 22500, "contenu": "", "ordre": 1}},
+  {"model": "services.soinspa", "pk": 2,  "fields": {"type_soin": "soin", "nom": "Massage relaxant", "duree": "1 heure", "prix_teranga": 43750, "prix_resident": 39375, "contenu": "", "ordre": 2}},
+  {"model": "services.soinspa", "pk": 3,  "fields": {"type_soin": "soin", "nom": "Massage oriental", "duree": "1 heure", "prix_teranga": 50000, "prix_resident": 45000, "contenu": "", "ordre": 3}},
+  {"model": "services.soinspa", "pk": 4,  "fields": {"type_soin": "soin", "nom": "Soin du visage", "duree": "45 min", "prix_teranga": 31250, "prix_resident": 28125, "contenu": "", "ordre": 4}},
+  {"model": "services.soinspa", "pk": 5,  "fields": {"type_soin": "soin", "nom": "Gommage corps", "duree": "45 min", "prix_teranga": 37500, "prix_resident": 33750, "contenu": "", "ordre": 5}},
+  {"model": "services.soinspa", "pk": 6,  "fields": {"type_soin": "soin", "nom": "Damp beurre de karité + serviettes", "duree": "40 min", "prix_teranga": 18750, "prix_resident": 16875, "contenu": "", "ordre": 6}},
+  {"model": "services.soinspa", "pk": 7,  "fields": {"type_soin": "soin", "nom": "Damp + gommage corporel", "duree": "1h00", "prix_teranga": 28750, "prix_resident": 25875, "contenu": "", "ordre": 7}},
+  {"model": "services.soinspa", "pk": 8,  "fields": {"type_soin": "soin", "nom": "Damp Mbartu (calebasse)", "duree": "1h00", "prix_teranga": 31250, "prix_resident": 28125, "contenu": "", "ordre": 8}},
+  {"model": "services.soinspa", "pk": 9,  "fields": {"type_soin": "soin", "nom": "Pédicure & Manucure", "duree": "Ensemble", "prix_teranga": 16250, "prix_resident": 14625, "contenu": "", "ordre": 9}},
+  {"model": "services.soinspa", "pk": 10, "fields": {"type_soin": "soin", "nom": "Séance Hammam intime", "duree": "1 séance", "prix_teranga": 15625, "prix_resident": 14063, "contenu": "", "ordre": 10}},
+  {"model": "services.soinspa", "pk": 11, "fields": {"type_soin": "soin", "nom": "Séance de sauna", "duree": "1 séance", "prix_teranga": 25000, "prix_resident": 22500, "contenu": "", "ordre": 11}},
+  {"model": "services.soinspa", "pk": 12, "fields": {"type_soin": "soin", "nom": "Hijama sèche", "duree": "—", "prix_teranga": 25000, "prix_resident": 22500, "contenu": "", "ordre": 12}},
+  {"model": "services.soinspa", "pk": 13, "fields": {"type_soin": "soin", "nom": "Hijama humide", "duree": "—", "prix_teranga": 37500, "prix_resident": 33750, "contenu": "", "ordre": 13}},
+
+  {"model": "services.soinspa", "pk": 14, "fields": {"type_soin": "forfait", "nom": "Pack Détente (Me Time)", "duree": "", "prix_teranga": 35000, "prix_resident": 31500, "contenu": "Damp + Gommage + Hydro", "ordre": 1}},
+  {"model": "services.soinspa", "pk": 15, "fields": {"type_soin": "forfait", "nom": "Pack Prestige (Me Time+)", "duree": "", "prix_teranga": 50000, "prix_resident": 45000, "contenu": "Damp + Gommage + Hydro + Pédicure/Manucure", "ordre": 2}},
+  {"model": "services.soinspa", "pk": 16, "fields": {"type_soin": "forfait", "nom": "Pack Femme Enceinte", "duree": "", "prix_teranga": 47500, "prix_resident": 42750, "contenu": "Massage prénatal + Gommage + Pédi/Mani", "ordre": 3}},
+  {"model": "services.soinspa", "pk": 17, "fields": {"type_soin": "forfait", "nom": "Pack Duo", "duree": "", "prix_teranga": 87500, "prix_resident": 78750, "contenu": "Massage 1h pour 2 personnes", "ordre": 4}},
+  {"model": "services.soinspa", "pk": 18, "fields": {"type_soin": "forfait", "nom": "Pack Sauna", "duree": "", "prix_teranga": 50000, "prix_resident": 45000, "contenu": "Sauna + Gommage + Hydro", "ordre": 5}}
+]

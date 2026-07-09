@@ -1,0 +1,217 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Tableau de bord — Teranga Aquaville Admin{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<div class="dash">
+
+  <!-- ══ TOPBAR ══════════════════════════════════════════════════════ -->
+  <div class="dash-topbar">
+    <div class="dash-topbar__left">
+      <p class="dash-topbar__eyebrow">Bienvenue, {{ user.first_name|default:user.username }}</p>
+      <h1 class="dash-topbar__title">Tableau de bord</h1>
+    </div>
+    <div class="dash-topbar__actions">
+      <a href="{% url 'admin:villas_villa_add' %}" class="dash-btn dash-btn--primary">
+        <span class="material-icons-round">add_home</span> Nouvelle villa
+      </a>
+      <a href="{% url 'admin:contact_demandecontact_changelist' %}?traite__exact=0" class="dash-btn dash-btn--ghost">
+        <span class="material-icons-round">mark_email_unread</span>
+        Demandes{% if stats.demandes_non_traitees > 0 %} ({{ stats.demandes_non_traitees }}){% endif %}
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ KPI STRIP ═══════════════════════════════════════════════════ -->
+  <div class="kpi-strip">
+
+    <a href="{% url 'admin:villas_villa_changelist' %}" class="kpi">
+      <div class="kpi__icon kpi__icon--ocean">
+        <span class="material-icons-round">villa</span>
+      </div>
+      <div class="kpi__body">
+        <span class="kpi__num">{{ stats.nb_villas }}</span>
+        <span class="kpi__label">Villas enregistrées</span>
+      </div>
+      <span class="kpi__arrow material-icons-round">chevron_right</span>
+    </a>
+
+    <a href="{% url 'admin:contact_demandecontact_changelist' %}?traite__exact=0" class="kpi kpi--alert">
+      <div class="kpi__icon kpi__icon--sand">
+        <span class="material-icons-round">mark_email_unread</span>
+      </div>
+      <div class="kpi__body">
+        <span class="kpi__num">{{ stats.demandes_non_traitees }}</span>
+        <span class="kpi__label">Demandes en attente</span>
+      </div>
+      {% if stats.demandes_non_traitees > 0 %}
+      <span class="kpi__badge">{{ stats.demandes_non_traitees }}</span>
+      {% endif %}
+      <span class="kpi__arrow material-icons-round">chevron_right</span>
+    </a>
+
+    <a href="{% url 'admin:contact_demandecontact_changelist' %}?traite__exact=1" class="kpi">
+      <div class="kpi__icon kpi__icon--green">
+        <span class="material-icons-round">task_alt</span>
+      </div>
+      <div class="kpi__body">
+        <span class="kpi__num">{{ stats.demandes_traitees }}</span>
+        <span class="kpi__label">Demandes traitées</span>
+      </div>
+      <span class="kpi__arrow material-icons-round">chevron_right</span>
+    </a>
+
+    <a href="{% url 'admin:services_soinspa_changelist' %}" class="kpi">
+      <div class="kpi__icon kpi__icon--terra">
+        <span class="material-icons-round">spa</span>
+      </div>
+      <div class="kpi__body">
+        <span class="kpi__num">{{ stats.nb_soins }}</span>
+        <span class="kpi__label">Soins & forfaits Spa</span>
+      </div>
+      <span class="kpi__arrow material-icons-round">chevron_right</span>
+    </a>
+
+  </div>
+
+  <!-- ══ MAIN GRID ═══════════════════════════════════════════════════ -->
+  <div class="dash-grid">
+
+    <!-- Colonne gauche — demandes -->
+    <div class="dash-col dash-col--main">
+
+      <div class="dash-card">
+        <div class="dash-card__head">
+          <div class="dash-card__head-left">
+            <span class="material-icons-round">inbox</span>
+            Dernières demandes
+            {% if stats.demandes_non_traitees > 0 %}
+            <span class="dot-alert">{{ stats.demandes_non_traitees }} en attente</span>
+            {% endif %}
+          </div>
+          <a href="{% url 'admin:contact_demandecontact_changelist' %}" class="dash-link">Tout voir →</a>
+        </div>
+
+        {% if dernieres_demandes %}
+        <div class="demandes-list">
+          {% for d in dernieres_demandes %}
+          <a href="{% url 'admin:contact_demandecontact_change' d.pk %}" class="demande-row">
+            <div class="demande-row__avatar">
+              {{ d.prenom|first|upper }}{{ d.nom|first|upper }}
+            </div>
+            <div class="demande-row__body">
+              <div class="demande-row__name">{{ d.prenom }} {{ d.nom }}</div>
+              <div class="demande-row__meta">
+                <span class="tag tag--type">{{ d.get_type_bien_display }}</span>
+                {% if d.budget %}<span class="tag tag--budget">{{ d.get_budget_display }}</span>{% endif %}
+              </div>
+            </div>
+            <div class="demande-row__right">
+              <span class="demande-row__date">{{ d.date_envoi|date:"d/m H:i" }}</span>
+              {% if d.traite %}
+                <span class="status status--done">Traité</span>
+              {% else %}
+                <span class="status status--pending">En attente</span>
+              {% endif %}
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="dash-empty">
+          <span class="material-icons-round">inbox</span>
+          <p>Aucune demande de contact pour le moment.</p>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <!-- Colonne droite — actions rapides + modules -->
+    <div class="dash-col dash-col--side">
+
+      <!-- Actions rapides -->
+      <div class="dash-card">
+        <div class="dash-card__head">
+          <div class="dash-card__head-left">
+            <span class="material-icons-round">bolt</span>
+            Actions rapides
+          </div>
+        </div>
+        <div class="quick-actions">
+          <a href="{% url 'admin:villas_villa_add' %}" class="qa">
+            <div class="qa__icon"><span class="material-icons-round">add_home</span></div>
+            <span>Ajouter villa</span>
+          </a>
+          <a href="{% url 'admin:villas_tarifvente_changelist' %}" class="qa">
+            <div class="qa__icon"><span class="material-icons-round">price_change</span></div>
+            <span>Tarifs vente</span>
+          </a>
+          <a href="{% url 'admin:villas_tariflocation_changelist' %}" class="qa">
+            <div class="qa__icon"><span class="material-icons-round">calendar_month</span></div>
+            <span>Tarifs location</span>
+          </a>
+          <a href="{% url 'admin:services_soinspa_changelist' %}" class="qa">
+            <div class="qa__icon"><span class="material-icons-round">spa</span></div>
+            <span>Soins Spa</span>
+          </a>
+          <a href="{% url 'admin:services_tarifparcaquatique_changelist' %}" class="qa">
+            <div class="qa__icon"><span class="material-icons-round">pool</span></div>
+            <span>Parc aquatique</span>
+          </a>
+          <a href="{% url 'admin:services_serviceinclus_changelist' %}" class="qa">
+            <div class="qa__icon"><span class="material-icons-round">sports_soccer</span></div>
+            <span>Services inclus</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Résumé modules -->
+      <div class="dash-card">
+        <div class="dash-card__head">
+          <div class="dash-card__head-left">
+            <span class="material-icons-round">apps</span>
+            Modules
+          </div>
+        </div>
+        <div class="modules-list">
+          <a href="{% url 'admin:villas_villa_changelist' %}" class="module-row">
+            <span class="material-icons-round module-row__icon">villa</span>
+            <span class="module-row__label">Villas</span>
+            <span class="module-row__arrow material-icons-round">chevron_right</span>
+          </a>
+          <a href="{% url 'admin:contact_demandecontact_changelist' %}" class="module-row">
+            <span class="material-icons-round module-row__icon">contact_mail</span>
+            <span class="module-row__label">Demandes de contact</span>
+            <span class="module-row__arrow material-icons-round">chevron_right</span>
+          </a>
+          <a href="{% url 'admin:services_soinspa_changelist' %}" class="module-row">
+            <span class="material-icons-round module-row__icon">spa</span>
+            <span class="module-row__label">Spa Peri'Care</span>
+            <span class="module-row__arrow material-icons-round">chevron_right</span>
+          </a>
+          <a href="{% url 'admin:services_tarifparcaquatique_changelist' %}" class="module-row">
+            <span class="material-icons-round module-row__icon">pool</span>
+            <span class="module-row__label">Parc aquatique</span>
+            <span class="module-row__arrow material-icons-round">chevron_right</span>
+          </a>
+          <a href="{% url 'admin:services_serviceinclus_changelist' %}" class="module-row">
+            <span class="material-icons-round module-row__icon">fitness_center</span>
+            <span class="module-row__label">Services inclus</span>
+            <span class="module-row__arrow material-icons-round">chevron_right</span>
+          </a>
+          <a href="{% url 'admin:auth_user_changelist' %}" class="module-row">
+            <span class="material-icons-round module-row__icon">manage_accounts</span>
+            <span class="module-row__label">Utilisateurs</span>
+            <span class="module-row__arrow material-icons-round">chevron_right</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

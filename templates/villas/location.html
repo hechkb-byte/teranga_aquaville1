@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static villa_tags %}
+
+{% block title %}Villas à louer | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--location">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">Location</span>
+    <h1>Villas à louer</h1>
+    <p>Courte ou longue durée, Standard ou Bord de mer — 19 villas disponibles</p>
+  </div>
+</section>
+
+<!-- FILTRES -->
+<section class="filtres section--sm">
+  <div class="container">
+    <div class="filtres__form">
+      <div class="filtres__group">
+        <label>Type</label>
+        <div class="filtres__pills">
+          <a href="?{% if categorie_filtre %}categorie={{ categorie_filtre }}{% endif %}" class="pill {% if not type_filtre %}pill--active{% endif %}">Tous</a>
+          <a href="?type=F4{% if categorie_filtre %}&categorie={{ categorie_filtre }}{% endif %}" class="pill {% if type_filtre == 'F4' %}pill--active{% endif %}">F4</a>
+          <a href="?type=F5{% if categorie_filtre %}&categorie={{ categorie_filtre }}{% endif %}" class="pill {% if type_filtre == 'F5' %}pill--active{% endif %}">F5</a>
+          <a href="?type=F6{% if categorie_filtre %}&categorie={{ categorie_filtre }}{% endif %}" class="pill {% if type_filtre == 'F6' %}pill--active{% endif %}">F6</a>
+        </div>
+      </div>
+      <div class="filtres__group">
+        <label>Catégorie</label>
+        <div class="filtres__pills">
+          <a href="?{% if type_filtre %}type={{ type_filtre }}{% endif %}" class="pill {% if not categorie_filtre %}pill--active{% endif %}">Toutes</a>
+          <a href="?{% if type_filtre %}type={{ type_filtre }}&{% endif %}categorie=standard" class="pill {% if categorie_filtre == 'standard' %}pill--active{% endif %}">Standard</a>
+          <a href="?{% if type_filtre %}type={{ type_filtre }}&{% endif %}categorie=bord_mer" class="pill {% if categorie_filtre == 'bord_mer' %}pill--active{% endif %}">Bord de mer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRILLE VILLAS -->
+<section class="villas-grid section">
+  <div class="container">
+    {% if villas %}
+      <div class="villas__grid">
+        {% for villa in villas %}
+        <article class="villa-card" data-aos="fade-up">
+          <div class="villa-card__media">
+            {% if villa.image_principale %}
+              <img src="{{ villa.image_principale.url }}" alt="Villa {{ villa.nom|default:villa.numero }}">
+            {% else %}
+              <img src="/media/villas/villa-ayo-principale.png" alt="Villa {{ villa.nom|default:villa.numero }}">
+            {% endif %}
+            <span class="villa-card__badge villa-card__badge--{{ villa.categorie }}">{{ villa.get_categorie_display }}</span>
+          </div>
+          <div class="villa-card__body">
+            <div class="villa-card__meta">
+              <span class="villa-card__type">{{ villa.type_villa }}</span>
+              <span class="villa-card__cap"><span class="material-icons-round">group</span> {{ villa.capacite }} pers.</span>
+              <span class="villa-card__surf"><span class="material-icons-round">straighten</span> {{ villa.superficie }} m²</span>
+            </div>
+            <h3 class="villa-card__title">Villa {{ villa.nom|default:villa.numero }}</h3>
+            <div class="villa-card__tarifs">
+              {% with key=villa.type_villa|add:','|add:villa.categorie %}
+              <div class="tarif-ligne">
+                <span class="material-icons-round">nightlight</span>
+                <span>Nuitée : </span>
+                <strong>
+                  {% for k, v in tarifs_nuit.items %}
+                    {% if k.0 == villa.type_villa and k.1 == villa.categorie %}{{ v|format_prix }} FCFA{% endif %}
+                  {% endfor %}
+                </strong>
+              </div>
+              <div class="tarif-ligne">
+                <span class="material-icons-round">calendar_month</span>
+                <span>Mensuel : </span>
+                <strong>
+                  {% for k, v in tarifs_mois.items %}
+                    {% if k.0 == villa.type_villa and k.1 == villa.categorie %}{{ v|format_prix }} FCFA{% endif %}
+                  {% endfor %}
+                </strong>
+              </div>
+              {% endwith %}
+            </div>
+            <a href="{% url 'contact' %}?type_bien=location_nuit" class="btn btn--primary btn--sm">Réserver</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <span class="material-icons-round">search_off</span>
+        <p>Aucune villa disponible pour ces critères.</p>
+        <a href="{% url 'villas_location' %}" class="btn btn--outline">Réinitialiser</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- TABLEAU TARIFS -->
+<section class="tableau-prix section section--alt">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Tarification</span>
+      <h2 class="section-title">Grille tarifaire location</h2>
+      <p>Tous les prix sont en FCFA par nuit ou par mois</p>
+    </div>
+
+    <div class="tarifs-tabs" data-aos="fade-up">
+      <div class="tarifs-tabs__nav">
+        <button class="tarifs-tab active" data-tab="nuit">Tarifs nuitée</button>
+        <button class="tarifs-tab" data-tab="mois">Tarifs mensuel</button>
+      </div>
+      <div class="tarifs-tab__content active" id="tab-nuit">
+        <table class="tableau">
+          <thead><tr><th>Type</th><th>Standard</th><th>Bord de mer</th></tr></thead>
+          <tbody>
+            <tr><td><strong>F4</strong></td><td>175 000</td><td>255 000</td></tr>
+            <tr><td><strong>F5</strong></td><td>190 000</td><td>275 000</td></tr>
+            <tr><td><strong>F6</strong></td><td>250 000</td><td>300 000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tarifs-tab__content" id="tab-mois">
+        <table class="tableau">
+          <thead><tr><th>Type</th><th>Standard</th><th>Bord de mer</th></tr></thead>
+          <tbody>
+            <tr><td><strong>F4</strong></td><td>4 500 000</td><td>6 000 000</td></tr>
+            <tr><td><strong>F5</strong></td><td>5 500 000</td><td>7 000 000</td></tr>
+            <tr><td><strong>F6</strong></td><td>6 900 000</td><td>8 500 000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band__content" data-aos="fade-up">
+      <h2>Envie de réserver ?</h2>
+      <p>Contactez-nous pour vérifier les disponibilités</p>
+      <a href="{% url 'contact' %}" class="btn btn--primary btn--lg">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

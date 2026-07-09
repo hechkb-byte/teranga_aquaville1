@@ -1,0 +1,24 @@
+databases:
+  - name: teranga-aquaville-db
+    plan: free
+    databaseName: teranga_aquaville
+    user: teranga
+
+services:
+  - type: web
+    name: teranga-aquaville
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: teranga-aquaville-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: "3.13.0"

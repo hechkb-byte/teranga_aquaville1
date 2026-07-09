@@ -1,0 +1,139 @@
+{% extends "admin/base.html" %}
+{% load static sass_tags %}
+
+{% block title %}{{ title }} — Teranga Aquaville Admin{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'vendor/google-fonts.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/material-icons.css' %}">
+<link rel="stylesheet" href="{% sass_src 'scss/admin-custom.scss' %}">
+{% endblock %}
+
+{% block branding %}
+{% url 'admin:index' as url_index %}
+{% url 'admin:villas_villa_changelist' as url_villas %}
+{% url 'admin:villas_tarifvente_changelist' as url_tarif_vente %}
+{% url 'admin:villas_tariflocation_changelist' as url_tarif_loc %}
+{% url 'admin:services_serviceinclus_changelist' as url_services %}
+{% url 'admin:services_tarifparcaquatique_changelist' as url_parc %}
+{% url 'admin:services_soinspa_changelist' as url_spa %}
+{% url 'admin:contact_demandecontact_changelist' as url_demandes %}
+{% url 'admin:auth_user_changelist' as url_users %}
+{% url 'admin:auth_group_changelist' as url_groups %}
+
+<div class="ta-sidebar">
+
+  {# ── BRAND ───────────────────────────────────────────────────────── #}
+  <a href="{{ url_index }}" class="ta-brand">
+    <img src="{% static 'img/logo-blanc.jpg' %}" alt="TA" class="ta-brand__img">
+    <div class="ta-brand__text">
+      <span class="ta-brand__logo">Teranga <strong>Aquaville</strong></span>
+      <span class="ta-brand__chip">Admin</span>
+    </div>
+  </a>
+
+  {# ── NAVIGATION ──────────────────────────────────────────────────── #}
+  <nav class="ta-nav">
+
+    <a href="{{ url_index }}" class="ta-nav__link" data-path="{{ url_index }}" data-exact="true">
+      <span class="material-icons-round">dashboard</span>
+      <span>Tableau de bord</span>
+    </a>
+
+    <div class="ta-nav__sep">Immobilier</div>
+
+    <a href="{{ url_villas }}" class="ta-nav__link" data-path="{{ url_villas }}">
+      <span class="material-icons-round">villa</span>
+      <span>Villas</span>
+    </a>
+    <a href="{{ url_tarif_vente }}" class="ta-nav__link" data-path="{{ url_tarif_vente }}">
+      <span class="material-icons-round">sell</span>
+      <span>Tarifs vente</span>
+    </a>
+    <a href="{{ url_tarif_loc }}" class="ta-nav__link" data-path="{{ url_tarif_loc }}">
+      <span class="material-icons-round">calendar_month</span>
+      <span>Tarifs location</span>
+    </a>
+
+    <div class="ta-nav__sep">Services</div>
+
+    <a href="{{ url_services }}" class="ta-nav__link" data-path="{{ url_services }}">
+      <span class="material-icons-round">sports_soccer</span>
+      <span>Services inclus</span>
+    </a>
+    <a href="{{ url_parc }}" class="ta-nav__link" data-path="{{ url_parc }}">
+      <span class="material-icons-round">pool</span>
+      <span>Parc aquatique</span>
+    </a>
+    <a href="{{ url_spa }}" class="ta-nav__link" data-path="{{ url_spa }}">
+      <span class="material-icons-round">spa</span>
+      <span>Spa Peri'Care</span>
+    </a>
+
+    <div class="ta-nav__sep">CRM</div>
+
+    <a href="{{ url_demandes }}" class="ta-nav__link" data-path="{{ url_demandes }}">
+      <span class="material-icons-round">contact_mail</span>
+      <span>Demandes</span>
+      {% if pending_count > 0 %}
+      <span class="ta-nav__badge">{{ pending_count }}</span>
+      {% endif %}
+    </a>
+
+    <div class="ta-nav__sep">Système</div>
+
+    <a href="{{ url_users }}" class="ta-nav__link" data-path="{{ url_users }}">
+      <span class="material-icons-round">manage_accounts</span>
+      <span>Utilisateurs</span>
+    </a>
+    <a href="{{ url_groups }}" class="ta-nav__link" data-path="{{ url_groups }}">
+      <span class="material-icons-round">group</span>
+      <span>Groupes</span>
+    </a>
+
+  </nav>
+
+  {# ── FOOTER USER ─────────────────────────────────────────────────── #}
+  <div class="ta-sidebar-footer">
+    <div class="ta-user">
+      <div class="ta-user__avatar">{{ user.username|first|upper }}</div>
+      <div class="ta-user__info">
+        <span class="ta-user__name">{{ user.get_full_name|default:user.username }}</span>
+        <span class="ta-user__role">Administrateur</span>
+      </div>
+    </div>
+    <div class="ta-footer-actions">
+      <a href="{% url 'home' %}" target="_blank" class="ta-icon-btn" title="Voir le site">
+        <span class="material-icons-round">open_in_new</span>
+      </a>
+      <form method="POST" action="{% url 'admin:logout' %}" style="display:inline;margin:0">
+        {% csrf_token %}
+        <button type="submit" class="ta-icon-btn ta-icon-btn--danger" title="Déconnexion">
+          <span class="material-icons-round">logout</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block extrajs %}
+{{ block.super }}
+<script>
+(function () {
+  var path = window.location.pathname;
+  document.querySelectorAll('.ta-nav__link[data-path]').forEach(function (link) {
+    var lp    = link.dataset.path;
+    var exact = link.dataset.exact === 'true';
+    var active = exact ? (path === lp) : (lp && path.startsWith(lp));
+    if (active) link.classList.add('active');
+  });
+})();
+</script>
+{% endblock %}

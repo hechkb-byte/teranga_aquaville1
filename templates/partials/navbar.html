@@ -1,0 +1,37 @@
+{% load static %}
+<header class="navbar" id="navbar">
+  <div class="navbar__container">
+    <a href="{% url 'home' %}" class="navbar__logo">
+      <img src="{% static 'img/logo-blanc.jpg' %}" alt="Teranga Aquaville" class="navbar__logo-img">
+      <span class="navbar__logo-text">Teranga <strong>Aquaville</strong></span>
+    </a>
+
+    <nav class="navbar__nav" id="navMenu">
+      <ul class="navbar__links">
+        <li><a href="{% url 'home' %}" class="navbar__link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Accueil</a></li>
+        <li class="navbar__dropdown">
+          <a href="{% url 'villas_vente' %}" class="navbar__link">Villas à vendre</a>
+        </li>
+        <li>
+          <a href="{% url 'villas_location' %}" class="navbar__link {% if request.resolver_match.url_name == 'villas_location' %}active{% endif %}">Villas à louer</a>
+        </li>
+        <li class="navbar__dropdown">
+          <span class="navbar__link navbar__link--dropdown">Services <span class="material-icons-round">expand_more</span></span>
+          <ul class="navbar__submenu">
+            <li><a href="{% url 'services_inclus' %}">Services inclus</a></li>
+            <li><a href="{% url 'parc_aquatique' %}">Parc aquatique</a></li>
+            <li><a href="{% url 'spa' %}">Spa & Massage</a></li>
+            <li><a href="{% url 'restauration' %}">Restauration</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'contact' %}" class="navbar__link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+      </ul>
+    </nav>
+
+    <a href="{% url 'contact' %}" class="btn btn--primary btn--sm navbar__cta">Contact</a>
+
+    <button class="navbar__burger" id="burgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

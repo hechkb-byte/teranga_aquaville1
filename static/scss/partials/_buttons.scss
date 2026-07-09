@@ -1,0 +1,43 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: $font-sans;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.75rem;
+  border-radius: $radius-full;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: $transition;
+  text-align: center;
+  white-space: nowrap;
+
+  &--lg { font-size: 1rem; padding: 1rem 2.5rem; }
+  &--sm { font-size: 0.8rem; padding: 0.5rem 1.25rem; }
+  &--full { width: 100%; justify-content: center; }
+
+  &--primary {
+    background: $ocean;
+    color: $white;
+    border-color: $ocean;
+    &:hover { background: $ocean-dark; border-color: $ocean-dark; transform: translateY(-2px); box-shadow: $shadow-md; }
+  }
+
+  &--outline {
+    background: transparent;
+    color: $ocean;
+    border-color: $ocean;
+    &:hover { background: $ocean; color: $white; }
+  }
+
+  &--outline-light {
+    background: transparent;
+    color: $white;
+    border-color: rgba($white, 0.7);
+    &:hover { background: rgba($white, 0.15); border-color: $white; }
+  }
+
+  .material-icons-round { font-size: 1.1em; }
+}

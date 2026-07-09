@@ -1,0 +1,348 @@
+// ── GALERIE ACCUEIL ───────────────────────────────────────────────────
+.galerie__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.galerie__item {
+  overflow: hidden;
+  position: relative;
+
+  a {
+    display: block;
+    width: 100%; height: 100%;
+    position: relative;
+  }
+
+  img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+
+  &:hover img { transform: scale(1.06); }
+
+  &:hover a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  &--large {
+    grid-row: 1 / 3;
+    @media (max-width: $bp-md) { grid-row: auto; }
+  }
+}
+
+// ── CTA BAND ──────────────────────────────────────────────────────────
+.cta-band {
+  background: linear-gradient(135deg, $ocean-dark 0%, $ocean 100%);
+  padding: $space-xl 0;
+  text-align: center;
+
+  &__content {
+    h2 { color: $white; margin-bottom: 0.75rem; }
+    p { color: rgba($white, 0.8); margin-bottom: $space-md; font-size: 1.125rem; }
+  }
+}
+
+// ── VILLA DETAIL ──────────────────────────────────────────────────────
+.villa-detail {
+  &__hero {
+    position: relative;
+    height: 65vh;
+    overflow: hidden;
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba($text-dark, 0.5));
+    }
+
+    &-badge {
+      position: absolute;
+      top: calc(80px + 1rem);
+      right: 2rem;
+      background: $sand;
+      color: $white;
+      padding: 0.5rem 1.25rem;
+      border-radius: $radius-full;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: $space-xl;
+    align-items: start;
+    padding: $space-lg 0 $space-xl;
+
+    @media (max-width: $bp-lg) { grid-template-columns: 1fr; }
+  }
+
+  &__title {
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    margin-bottom: $space-md;
+    span { color: $ocean; }
+  }
+
+  &__specs {
+    display: flex;
+    gap: $space-md;
+    flex-wrap: wrap;
+    margin-bottom: $space-lg;
+    padding: $space-md 0;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+  }
+
+  .spec {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: $text-mid;
+    .material-icons-round { color: $ocean; }
+  }
+
+  &__desc, &__equipements {
+    margin-bottom: $space-lg;
+    h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: $text-light;
+  margin-bottom: $space-sm;
+
+  a:hover { color: $ocean; }
+  .material-icons-round { font-size: 1rem; }
+}
+
+.equipements-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: $text-mid;
+    .material-icons-round { font-size: 1rem; color: $green-nature; }
+  }
+}
+
+.galerie-mini {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+
+  &__item {
+    border-radius: $radius-sm;
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+    position: relative;
+
+    a {
+      display: block;
+      width: 100%; height: 100%;
+      position: relative;
+    }
+
+    &:hover img { transform: scale(1.06); }
+
+    &:hover .galerie-mini__zoom {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+
+  &__zoom {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.35rem;
+    font-size: 1.4rem !important;
+    opacity: 0;
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+  }
+}
+
+// ── PRIX CARD (sidebar villa detail) ─────────────────────────────────
+.prix-card {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius-xl;
+  padding: $space-lg;
+  box-shadow: $shadow-md;
+  position: sticky;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $text-light;
+  }
+
+  &__montant {
+    font-family: $font-serif;
+    font-size: 2.2rem;
+    color: $ocean;
+    font-weight: 600;
+    span { font-family: $font-sans; font-size: 0.85rem; font-weight: 400; color: $text-light; }
+  }
+}
+
+.echelon {
+  margin-top: $space-sm;
+  border-top: 1px solid $border;
+  padding-top: $space-sm;
+
+  h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; color: $text-mid; }
+
+  &__steps { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  &__step-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: $ocean;
+    color: $white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  &__step-info { flex: 1; }
+  &__step-label { display: block; color: $text-mid; }
+  &__step-montant { display: block; font-weight: 600; color: $text-dark; font-size: 0.75rem; }
+  &__step-pct { color: $sand; font-weight: 700; }
+}
+
+// ── PARC ATTRACTIONS ──────────────────────────────────────────────────
+.attractions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-sm;
+  margin-bottom: $space-lg;
+
+  @media (max-width: $bp-sm) { grid-template-columns: repeat(2, 1fr); }
+}
+
+.attraction-item {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  .material-icons-round { color: $ocean; font-size: 1.3rem; }
+}
+
+// ── RESTAURATION ──────────────────────────────────────────────────────
+.restauration__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-xl;
+  align-items: center;
+  margin-bottom: $space-xl;
+
+  &--reverse { direction: rtl; > * { direction: ltr; } }
+
+  @media (max-width: $bp-md) { grid-template-columns: 1fr; direction: ltr; }
+}
+
+.restauration__img {
+  border-radius: $radius-xl;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.restauration__content {
+  h2 { margin: 0.5rem 0 1rem; }
+  p { color: $text-mid; margin-bottom: $space-md; }
+}
+
+.restauration__liste {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: $text-mid;
+    .material-icons-round { color: $ocean; }
+  }
+}
+
+// ── SUCCES PAGE ───────────────────────────────────────────────────────
+.succes {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+
+  &__content {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  &__icon {
+    .material-icons-round { font-size: 5rem; color: $green-nature; margin-bottom: $space-md; display: block; }
+  }
+
+  h1 { margin-bottom: 1rem; }
+  p { color: $text-mid; margin-bottom: $space-lg; }
+
+  &__actions { display: flex; gap: $space-sm; justify-content: center; flex-wrap: wrap; }
+}

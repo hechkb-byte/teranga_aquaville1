@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static villa_tags %}
+
+{% block title %}Villas à vendre — VEFA | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--vente">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">VEFA</span>
+    <h1>Villas à vendre</h1>
+    <p>19 villas personnalisables livrées avec piscine privée, jardin et terrasse tropicale</p>
+  </div>
+</section>
+
+<!-- FILTRES -->
+<section class="filtres section--sm">
+  <div class="container">
+    <form method="GET" class="filtres__form" id="filtreForm">
+      <div class="filtres__group">
+        <label>Type</label>
+        <div class="filtres__pills">
+          <a href="?{% if categorie_filtre %}categorie={{ categorie_filtre }}{% endif %}" class="pill {% if not type_filtre %}pill--active{% endif %}">Tous</a>
+          <a href="?type=F4{% if categorie_filtre %}&categorie={{ categorie_filtre }}{% endif %}" class="pill {% if type_filtre == 'F4' %}pill--active{% endif %}">F4</a>
+          <a href="?type=F5{% if categorie_filtre %}&categorie={{ categorie_filtre }}{% endif %}" class="pill {% if type_filtre == 'F5' %}pill--active{% endif %}">F5</a>
+          <a href="?type=F6{% if categorie_filtre %}&categorie={{ categorie_filtre }}{% endif %}" class="pill {% if type_filtre == 'F6' %}pill--active{% endif %}">F6</a>
+        </div>
+      </div>
+      <div class="filtres__group">
+        <label>Catégorie</label>
+        <div class="filtres__pills">
+          <a href="?{% if type_filtre %}type={{ type_filtre }}{% endif %}" class="pill {% if not categorie_filtre %}pill--active{% endif %}">Toutes</a>
+          <a href="?{% if type_filtre %}type={{ type_filtre }}&{% endif %}categorie=standard" class="pill {% if categorie_filtre == 'standard' %}pill--active{% endif %}">Standard</a>
+          <a href="?{% if type_filtre %}type={{ type_filtre }}&{% endif %}categorie=bord_mer" class="pill {% if categorie_filtre == 'bord_mer' %}pill--active{% endif %}">Bord de mer</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- GRILLE VILLAS -->
+<section class="villas-grid section">
+  <div class="container">
+    {% if villas %}
+      <div class="villas__grid">
+        {% for villa in villas %}
+        <article class="villa-card" data-aos="fade-up">
+          <div class="villa-card__media">
+            {% if villa.image_principale %}
+              <img src="{{ villa.image_principale.url }}" alt="Villa {{ villa.nom|default:villa.numero }}">
+            {% else %}
+              <img src="/media/villas/villa-ayo-principale.png" alt="Villa {{ villa.nom|default:villa.numero }}">
+            {% endif %}
+            <span class="villa-card__badge villa-card__badge--{{ villa.categorie }}">
+              {{ villa.get_categorie_display }}
+            </span>
+          </div>
+          <div class="villa-card__body">
+            <div class="villa-card__meta">
+              <span class="villa-card__type">{{ villa.type_villa }}</span>
+              <span class="villa-card__cap"><span class="material-icons-round">group</span> {{ villa.capacite }} pers.</span>
+              <span class="villa-card__surf"><span class="material-icons-round">straighten</span> {{ villa.superficie }} m²</span>
+            </div>
+            <h3 class="villa-card__title">Villa {{ villa.nom|default:villa.numero }}</h3>
+            <p class="villa-card__desc">{{ villa.description|truncatewords:20 }}</p>
+            {% for tarif in tarifs %}
+              {% if tarif.type_villa == villa.type_villa and tarif.categorie == villa.categorie %}
+              <p class="villa-card__prix">{{ tarif.prix|format_prix }} <span>FCFA</span></p>
+              {% endif %}
+            {% endfor %}
+            <a href="{% url 'villa_detail_vente' villa.slug %}" class="btn btn--primary btn--sm">Voir la villa</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <span class="material-icons-round">search_off</span>
+        <p>Aucune villa ne correspond à ces filtres.</p>
+        <a href="{% url 'villas_vente' %}" class="btn btn--outline">Réinitialiser</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- TABLEAU DES PRIX VEFA -->
+<section class="tableau-prix section section--alt">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Tarification</span>
+      <h2 class="section-title">Prix de vente VEFA</h2>
+      <p>Tous les prix sont en FCFA, TVA incluse</p>
+    </div>
+    <div class="tableau-wrapper" data-aos="fade-up">
+      <table class="tableau">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Standard</th>
+            <th>Bord de mer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>F4</strong> <small>(6 pers. min.)</small></td>
+            <td>175 000 000</td>
+            <td>225 000 000</td>
+          </tr>
+          <tr>
+            <td><strong>F5</strong> <small>(8 pers. min.)</small></td>
+            <td>240 000 000</td>
+            <td>310 000 000</td>
+          </tr>
+          <tr>
+            <td><strong>F6</strong> <small>(12 pers. min.)</small></td>
+            <td>320 000 000</td>
+            <td>415 000 000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ÉCHELONNEMENT 8 APPELS -->
+    <div class="section-header section-header--mt" data-aos="fade-up">
+      <h2 class="section-title">Échelonnement des paiements</h2>
+      <p>8 appels de fonds liés à l'avancement des travaux</p>
+    </div>
+    <div class="tableau-wrapper" data-aos="fade-up">
+      <table class="tableau tableau--echelon">
+        <thead>
+          <tr>
+            <th>Étape</th>
+            <th>%</th>
+            <th>F4 Std</th>
+            <th>F5 Std</th>
+            <th>F6 Std</th>
+            <th>F4 Mer</th>
+            <th>F5 Mer</th>
+            <th>F6 Mer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Contrat de réservation</td><td>5%</td><td>8 750 000</td><td>12 000 000</td><td>16 000 000</td><td>11 250 000</td><td>15 500 000</td><td>20 750 000</td></tr>
+          <tr><td>Acte authentique</td><td>25%</td><td>43 750 000</td><td>60 000 000</td><td>80 000 000</td><td>56 250 000</td><td>77 500 000</td><td>103 750 000</td></tr>
+          <tr><td>Fondations</td><td>5%</td><td>8 750 000</td><td>12 000 000</td><td>16 000 000</td><td>11 250 000</td><td>15 500 000</td><td>20 750 000</td></tr>
+          <tr><td>Plancher / RDC</td><td>25%</td><td>43 750 000</td><td>60 000 000</td><td>80 000 000</td><td>56 250 000</td><td>77 500 000</td><td>103 750 000</td></tr>
+          <tr><td>Toiture / étanchéité</td><td>10%</td><td>17 500 000</td><td>24 000 000</td><td>32 000 000</td><td>22 500 000</td><td>31 000 000</td><td>41 500 000</td></tr>
+          <tr><td>Cloisons</td><td>20%</td><td>35 000 000</td><td>48 000 000</td><td>64 000 000</td><td>45 000 000</td><td>62 000 000</td><td>83 000 000</td></tr>
+          <tr><td>Achèvement</td><td>5%</td><td>8 750 000</td><td>12 000 000</td><td>16 000 000</td><td>11 250 000</td><td>15 500 000</td><td>20 750 000</td></tr>
+          <tr class="tableau__total"><td><strong>Remise des clés</strong></td><td>5%</td><td>8 750 000</td><td>12 000 000</td><td>16 000 000</td><td>11 250 000</td><td>15 500 000</td><td>20 750 000</td></tr>
+          <tr class="tableau__total"><td><strong>TOTAL</strong></td><td><strong>100%</strong></td><td><strong>175 000 000</strong></td><td><strong>240 000 000</strong></td><td><strong>320 000 000</strong></td><td><strong>225 000 000</strong></td><td><strong>310 000 000</strong></td><td><strong>415 000 000</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band__content" data-aos="fade-up">
+      <h2>Une question sur votre acquisition ?</h2>
+      <p>Notre équipe commerciale vous répond sous 24h</p>
+      <a href="{% url 'contact' %}" class="btn btn--primary btn--lg">Prendre contact</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

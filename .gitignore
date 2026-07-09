@@ -1,0 +1,40 @@
+# Secrets & config
+.env
+*.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtualenv
+venv/
+.venv/
+env/
+
+# Django
+staticfiles/
+*.log
+db.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# SCSS cache
+.sass-cache/
+*.css.map
+static/scss/**/*.css

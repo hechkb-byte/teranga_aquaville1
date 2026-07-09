@@ -1,0 +1,52 @@
+{% load static %}
+<footer class="footer">
+  <div class="footer__top">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="{% url 'home' %}" class="footer__logo-link">
+            <img src="{% static 'img/logo-blanc.jpg' %}" alt="Teranga Aquaville" class="footer__logo-img">
+          </a>
+          <h3 class="footer__logo">Teranga <strong>Aquaville</strong></h3>
+          <p>Un art de vivre premium sur la Petite Côte du Sénégal, face à l'Atlantique.</p>
+          <p class="footer__location">
+            <span class="material-icons-round">location_on</span>
+            Pointe Sarène, Petite Côte, Sénégal
+          </p>
+        </div>
+
+        <div class="footer__links-group">
+          <h4>Immobilier</h4>
+          <ul>
+            <li><a href="{% url 'villas_vente' %}">Villas à vendre (VEFA)</a></li>
+            <li><a href="{% url 'villas_location' %}">Villas à louer</a></li>
+            <li><a href="{% url 'contact' %}">Demander une visite</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__links-group">
+          <h4>Loisirs & Bien-être</h4>
+          <ul>
+            <li><a href="{% url 'parc_aquatique' %}">Parc aquatique</a></li>
+            <li><a href="{% url 'spa' %}">Spa Peri'Care</a></li>
+            <li><a href="{% url 'restauration' %}">Restauration</a></li>
+            <li><a href="{% url 'services_inclus' %}">Services inclus</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__contact-info">
+          <h4>Contact</h4>
+          <p><span class="material-icons-round">phone</span> +221 33 000 00 00</p>
+          <p><span class="material-icons-round">email</span> contact@teranga-aquaville.sn</p>
+          <a href="{% url 'contact' %}" class="btn btn--outline btn--sm">Nous écrire</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <p>&copy; 2026 Teranga Aquaville. By Baye Modou Gestu Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>

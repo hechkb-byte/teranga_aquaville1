@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static villa_tags %}
+
+{% block title %}Villa {{ villa.nom|default:villa.numero }} — {{ villa.type_villa }} {{ villa.get_categorie_display }} | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="villa-detail">
+  <div class="villa-detail__hero">
+    {% if villa.image_principale %}
+      <img src="{{ villa.image_principale.url }}" alt="Villa {{ villa.nom|default:villa.numero }}">
+    {% else %}
+      <img src="/media/villas/villa-touba-principale.png" alt="Villa {{ villa.nom|default:villa.numero }}">
+    {% endif %}
+    <div class="villa-detail__hero-overlay"></div>
+    <div class="villa-detail__hero-badge">{{ villa.get_categorie_display }}</div>
+  </div>
+
+  <div class="container">
+    <div class="villa-detail__layout">
+
+      <!-- INFOS PRINCIPALES -->
+      <div class="villa-detail__main">
+        <nav class="breadcrumb">
+          <a href="{% url 'home' %}">Accueil</a>
+          <span class="material-icons-round">chevron_right</span>
+          <a href="{% url 'villas_vente' %}">Villas à vendre</a>
+          <span class="material-icons-round">chevron_right</span>
+          <span>Villa {{ villa.nom|default:villa.numero }}</span>
+        </nav>
+
+        <h1 class="villa-detail__title">Villa {{ villa.nom|default:villa.numero }} — {{ villa.type_villa }} <span>{{ villa.get_categorie_display }}</span></h1>
+
+        <div class="villa-detail__specs">
+          <div class="spec">
+            <span class="material-icons-round">group</span>
+            <span>{{ villa.capacite }} personnes minimum</span>
+          </div>
+          <div class="spec">
+            <span class="material-icons-round">straighten</span>
+            <span>{{ villa.superficie }} m²</span>
+          </div>
+          <div class="spec">
+            <span class="material-icons-round">pool</span>
+            <span>Piscine privée incluse</span>
+          </div>
+          <div class="spec">
+            <span class="material-icons-round">yard</span>
+            <span>Jardin & terrasse tropicale</span>
+          </div>
+        </div>
+
+        {% if villa.description %}
+        <div class="villa-detail__desc">
+          <h3>Description</h3>
+          <p>{{ villa.description }}</p>
+        </div>
+        {% endif %}
+
+        {% if villa.get_equipements_list %}
+        <div class="villa-detail__equipements">
+          <h3>Équipements</h3>
+          <ul class="equipements-list">
+            {% for eq in villa.get_equipements_list %}
+            <li><span class="material-icons-round">check_circle</span> {{ eq }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <!-- GALERIE -->
+        {% if villa.images.all %}
+        <div class="villa-detail__galerie">
+          <h3>Galerie photos</h3>
+          <div class="galerie-mini">
+            {% for img in villa.images.all %}
+            <div class="galerie-mini__item">
+              <a href="{{ img.image.url }}" class="glightbox" data-gallery="villa-{{ villa.slug }}" data-glightbox="title: {{ img.legende|default:'Villa '|add:villa.numero }}">
+                <img src="{{ img.image.url }}" alt="{{ img.legende|default:'Photo villa' }}">
+                <span class="galerie-mini__zoom material-icons-round">zoom_in</span>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- SIDEBAR PRIX -->
+      <aside class="villa-detail__sidebar">
+        {% if tarif %}
+        <div class="prix-card">
+          <p class="prix-card__label">Prix de vente VEFA</p>
+          <p class="prix-card__montant">{{ tarif.prix|format_prix }} <span>FCFA</span></p>
+
+          <a href="{% url 'contact' %}?type_bien=vente_{{ villa.type_villa|lower }}" class="btn btn--primary btn--full">
+            Demander une visite
+          </a>
+          <a href="tel:+221330000000" class="btn btn--outline btn--full">
+            <span class="material-icons-round">phone</span> Appeler
+          </a>
+
+          <!-- ÉCHELONNEMENT -->
+          {% if tarif.appels_fonds.all %}
+          <div class="echelon">
+            <h4>Échelonnement des paiements</h4>
+            <div class="echelon__steps">
+              {% for appel in tarif.appels_fonds.all %}
+              <div class="echelon__step">
+                <div class="echelon__step-num">{{ appel.etape }}</div>
+                <div class="echelon__step-info">
+                  <span class="echelon__step-label">{{ appel.get_etape_display }}</span>
+                  <span class="echelon__step-montant">{{ appel.montant|format_prix }} FCFA</span>
+                </div>
+                <div class="echelon__step-pct">{{ appel.pourcentage }}%</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

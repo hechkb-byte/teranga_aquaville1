@@ -1,0 +1,123 @@
+// ── PAGE HERO (pages internes) ────────────────────────────────────────
+.page-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 420px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: $ocean-dark;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba($text-dark, 0.75) 0%, rgba($text-dark, 0.3) 60%, transparent 100%);
+    z-index: 1;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: $space-lg;
+    color: $white;
+
+    h1 { color: $white; margin-bottom: 0.5rem; }
+    p { font-size: 1.125rem; color: rgba($white, 0.85); }
+  }
+
+  &--vente        { background-image: url('/media/villas/villa-pasteur-ben-principale.png'); background-size: cover; background-position: center; }
+  &--location     { background-image: url('/media/villas/villa-ayo-principale.png');          background-size: cover; background-position: center; }
+  &--parc         { background-image: url('/media/villas/villa-touba-principale.png');         background-size: cover; background-position: center; }
+  &--spa          { background-image: url('/media/villas/villa-pasteur-ben-2.png');            background-size: cover; background-position: center; }
+  &--services     { background-image: url('/media/villas/villa-ayo-2.png');                    background-size: cover; background-position: center; }
+  &--restauration { background-image: url('/media/villas/villa-touba-2.png');                  background-size: cover; background-position: center; }
+  &--contact      { background-image: url('/media/villas/villa-touba-principale.png');         background-size: cover; background-position: center top; }
+}
+
+// ── HOME HERO ─────────────────────────────────────────────────────────
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba($ocean-dark, 0.75) 0%,
+      rgba($text-dark, 0.4) 60%,
+      rgba($text-dark, 0.2) 100%
+    );
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    color: $white;
+    max-width: 720px;
+  }
+
+  &__eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $sand-light;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $font-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    color: $white;
+    line-height: 1.05;
+    margin-bottom: 1.25rem;
+  }
+
+  &__subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba($white, 0.85);
+    margin-bottom: $space-lg;
+    max-width: 560px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-sm;
+    flex-wrap: wrap;
+  }
+
+  &__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: rgba($white, 0.6);
+    animation: bounce 2s infinite;
+
+    .material-icons-round { font-size: 2rem; }
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}

@@ -1,0 +1,46 @@
+{% load sass_tags static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Teranga Aquaville — Pointe Sarène, Sénégal{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Complexe immobilier et de loisirs premium à Pointe Sarène, Petite Côte du Sénégal. Villas à vendre et à louer, parc aquatique, spa et restauration.{% endblock %}">
+
+  <!-- Polices locales (Cormorant Garamond + Jost) -->
+  <link rel="stylesheet" href="{% static 'vendor/google-fonts.css' %}">
+
+  <!-- Material Icons (local) -->
+  <link rel="stylesheet" href="{% static 'vendor/material-icons.css' %}">
+
+  <!-- SCSS compilé -->
+  <link rel="stylesheet" href="{% sass_src 'scss/main.scss' %}">
+
+  <!-- AOS animations (local) -->
+  <link rel="stylesheet" href="{% static 'vendor/aos.css' %}">
+
+  <!-- GLightbox galerie (local) -->
+  <link rel="stylesheet" href="{% static 'vendor/glightbox.min.css' %}">
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  {% include 'partials/navbar.html' %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include 'partials/footer.html' %}
+
+  <!-- AOS (local) -->
+  <script src="{% static 'vendor/aos.js' %}"></script>
+  <!-- GLightbox (local) -->
+  <script src="{% static 'vendor/glightbox.min.js' %}"></script>
+  <!-- JS principal -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

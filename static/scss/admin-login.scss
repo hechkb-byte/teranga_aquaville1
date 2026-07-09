@@ -1,0 +1,313 @@
+// ── Variables ─────────────────────────────────────────────────────────
+$ocean:      #1A6B8A;
+$ocean-dark: #0D4A62;
+$sand:       #4A9BB8;
+$sand-light: #BDD9E8;
+$sand-pale:  #EBF4F8;
+$white:      #FFFFFF;
+$text-dark:  #1A1A1A;
+$text-mid:   #4A4A4A;
+$text-light: #8A8A8A;
+$border:     #E8E2D6;
+$error:      #C0392B;
+$font-serif: 'Cormorant Garamond', Georgia, serif;
+$font-sans:  'Jost', system-ui, sans-serif;
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: $font-sans; -webkit-font-smoothing: antialiased; }
+
+.material-icons-round { font-size: inherit; vertical-align: middle; line-height: 1; }
+
+// ── SPLIT LAYOUT ──────────────────────────────────────────────────────
+.login-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+
+  // ── PANNEAU GAUCHE — Brand ─────────────────────────────────────────
+  &__brand {
+    position: relative;
+    background-image: url('/media/villas/villa-touba-principale.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3rem;
+    overflow: hidden;
+
+    @media (max-width: 768px) { display: none; }
+  }
+
+  &__brand-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba($ocean-dark, 0.85) 0%,
+      rgba($ocean-dark, 0.60) 60%,
+      rgba($text-dark, 0.70) 100%
+    );
+  }
+
+  &__brand-content {
+    position: relative;
+    z-index: 2;
+    color: $white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__brand-location {
+    position: relative;
+    z-index: 2;
+    color: rgba($white, 0.5);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    letter-spacing: 0.05em;
+    .material-icons-round { font-size: 1rem; }
+  }
+
+  // ── PANNEAU DROIT — Form ──────────────────────────────────────────
+  &__form {
+    background: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+  }
+}
+
+// ── BRAND CONTENT ─────────────────────────────────────────────────────
+.login-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+
+  &__img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  &__text {
+    font-family: $font-serif;
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: $white;
+    strong { font-weight: 600; color: $sand-light; }
+  }
+}
+
+.login-brand-title {
+  font-family: $font-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: $white;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+
+.login-brand-subtitle {
+  font-size: 1rem;
+  color: rgba($white, 0.75);
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.login-brand-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.login-stat {
+  &__num {
+    display: block;
+    font-family: $font-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $sand-light;
+    line-height: 1;
+  }
+  &__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba($white, 0.55);
+    margin-top: 0.3rem;
+  }
+}
+
+// ── FORM WRAPPER ──────────────────────────────────────────────────────
+.login-form-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.login-form-avatar {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, $ocean 0%, $ocean-dark 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 8px 24px rgba($ocean, 0.3);
+
+  .material-icons-round { font-size: 2rem; color: $white; }
+}
+
+.login-form-header h2 {
+  font-family: $font-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: $text-dark;
+  margin-bottom: 0.5rem;
+}
+
+.login-form-header p {
+  font-size: 0.875rem;
+  color: $text-light;
+}
+
+// ── ALERT ─────────────────────────────────────────────────────────────
+.login-alert {
+  background: rgba($error, 0.08);
+  border: 1px solid rgba($error, 0.25);
+  border-left: 4px solid $error;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: $error;
+
+  .material-icons-round { font-size: 1.2rem; flex-shrink: 0; }
+}
+
+// ── FIELDS ────────────────────────────────────────────────────────────
+.login-field {
+  margin-bottom: 1.25rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: $text-mid;
+    margin-bottom: 0.5rem;
+    .material-icons-round { font-size: 1rem; color: $ocean; }
+  }
+
+  input {
+    width: 100%;
+    padding: 0.875rem 1.1rem;
+    border: 1.5px solid $border;
+    border-radius: 10px;
+    font-family: $font-sans;
+    font-size: 0.95rem;
+    color: $text-dark;
+    background: $white;
+    outline: none;
+    transition: all 0.25s ease;
+
+    &::placeholder { color: lighten($text-light, 15%); }
+    &:focus {
+      border-color: $ocean;
+      box-shadow: 0 0 0 4px rgba($ocean, 0.1);
+    }
+  }
+
+  &__password {
+    position: relative;
+    input { padding-right: 3rem; }
+  }
+}
+
+.toggle-pwd {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $text-light;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  transition: color 0.2s;
+
+  &:hover { color: $ocean; }
+  .material-icons-round { font-size: 1.2rem; }
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────
+.login-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, $ocean 0%, $ocean-dark 100%);
+  color: $white;
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 16px rgba($ocean, 0.3);
+
+  .material-icons-round { font-size: 1.1rem; }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba($ocean, 0.4);
+  }
+  &:active { transform: translateY(0); }
+}
+
+// ── FOOTER ────────────────────────────────────────────────────────────
+.login-form-footer {
+  margin-top: 2rem;
+  text-align: center;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: $text-light;
+    text-decoration: none;
+    transition: color 0.2s;
+    .material-icons-round { font-size: 1rem; }
+    &:hover { color: $ocean; }
+  }
+}

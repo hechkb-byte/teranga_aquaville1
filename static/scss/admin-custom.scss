@@ -1,0 +1,1204 @@
+// ══════════════════════════════════════════════════════════════════════
+// TERANGA AQUAVILLE — Admin Custom CSS (Tabler-inspired)
+// ══════════════════════════════════════════════════════════════════════
+
+// ── Variables ─────────────────────────────────────────────────────────
+$sidebar-w:    240px;
+$ocean:        #1A6B8A;
+$ocean-dark:   #0D4A62;
+$ocean-light:  #e0f4f9;
+$sand:         #4A9BB8;
+$white:        #ffffff;
+$page-bg:      #f1f5f9;
+$card-bg:      #ffffff;
+$text:         #1e293b;
+$text-mid:     #64748b;
+$text-muted:   #94a3b8;
+$border:       #e2e8f0;
+$green:        #16a34a;
+$orange:       #d97706;
+$red:          #dc2626;
+$font-serif:   'Cormorant Garamond', Georgia, serif;
+$font-sans:    'Jost', system-ui, sans-serif;
+
+// Sidebar palette (dark)
+$sb-bg:        #12202e;
+$sb-border:    rgba(255,255,255,0.06);
+$sb-text:      #94a3b8;
+$sb-text-hover:#e2e8f0;
+$sb-active-bg: rgba(26, 107, 138, 0.22);
+$sb-active-txt:#fff;
+$sb-sep:       rgba(255,255,255,0.12);
+
+// ── FORCE LIGHT MODE — écrase les CSS variables Django 6 ──────────────
+:root,
+html[data-theme],
+html {
+  color-scheme: light !important;
+  --primary:              #{$ocean} !important;
+  --secondary:            #{$sand} !important;
+  --accent:               #{$ocean} !important;
+  --primary-fg:           #fff !important;
+  --body-fg:              #{$text} !important;
+  --body-bg:              #{$page-bg} !important;
+  --body-quiet-color:     #{$text-mid} !important;
+  --body-loud-color:      #{$text} !important;
+  --header-color:         #fff !important;
+  --header-branding-color:#fff !important;
+  --header-bg:            #{$sb-bg} !important;
+  --header-link-color:    #fff !important;
+  --breadcrumbs-fg:       #{$text-mid} !important;
+  --breadcrumbs-link-fg:  #{$ocean} !important;
+  --breadcrumbs-bg:       #{$white} !important;
+  --link-fg:              #{$ocean} !important;
+  --link-hover-color:     #{$ocean-dark} !important;
+  --link-selected-fg:     #{$ocean-dark} !important;
+  --hairline-color:        #{$border} !important;
+  --border-color:          #{$border} !important;
+  --nav-sidebar-width:     0px !important;
+  --sidebar-fg:           #{$text} !important;
+  --sidebar-bg:           #{$white} !important;
+  --sidebar-hover-bg:     #{$ocean-light} !important;
+  --darkmode-bg:          #{$white} !important;
+  --module-bg:            #{$white} !important;
+  --content-bg:           #{$white} !important;
+  --input-bg:             #{$white} !important;
+  --input-focus-color:    #{$ocean} !important;
+  --default-button-bg:    #{$ocean} !important;
+  --default-button-fg:    #fff !important;
+  --close-button-bg:      #ccc !important;
+  --object-tools-fg:      #fff !important;
+  --object-tools-bg:      #{$sand} !important;
+  --selected-bg:          #{$ocean-light} !important;
+  --selected-row:         #{$ocean-light} !important;
+  --darkened-bg:          #f8fafc !important;
+  --changed-bg:           #fefce8 !important;
+  --error-bg:             #fef2f2 !important;
+  --message-success-bg:   #f0fdf4 !important;
+  --message-warning-bg:   #fffbeb !important;
+  --message-error-bg:     #fef2f2 !important;
+  --table-header-bg:      #{$ocean} !important;
+  --table-header-fg:      #fff !important;
+}
+
+// ── RESET ─────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  background: $page-bg !important;
+  color: $text !important;
+  font-family: $font-sans !important;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 0 !important;
+  margin: 0 !important;
+}
+
+.material-icons-round { font-size: inherit; vertical-align: middle; line-height: 1; }
+
+// ══════════════════════════════════════════════════════════════════════
+// LAYOUT — Transform #header → Sidebar
+// ══════════════════════════════════════════════════════════════════════
+
+#header {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  right: auto !important; bottom: 0 !important;
+  width: $sidebar-w !important;
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  z-index: 200 !important;
+  background: $sb-bg !important;
+  border-right: 1px solid $sb-border !important;
+  box-shadow: 4px 0 24px rgba(0,0,0,.15) !important;
+
+  // Hide scrollbar visually
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+}
+
+#branding {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+}
+
+#user-tools { display: none !important; }
+
+.main, #main {
+  margin-left: $sidebar-w !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
+  background: $page-bg !important;
+}
+
+#nav-sidebar,
+.toggle-nav-sidebar-button { display: none !important; }
+
+#content-container { display: flex; }
+
+#content {
+  flex: 1;
+  padding: 2rem 2.5rem !important;
+  font-family: $font-sans !important;
+  color: $text !important;
+  min-width: 0;
+  background: $page-bg !important;
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// SIDEBAR COMPONENTS
+// ══════════════════════════════════════════════════════════════════════
+.ta-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 0;
+}
+
+// Brand
+.ta-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.4rem 1.25rem 1.2rem;
+  text-decoration: none !important;
+  border-bottom: 1px solid $sb-border;
+  flex-shrink: 0;
+
+  &__img {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    font-family: $font-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #fff !important;
+    letter-spacing: 0.01em;
+    strong { font-weight: 600; color: $sand !important; }
+  }
+
+  &__chip {
+    background: rgba($ocean, 0.5);
+    color: rgba(#fff, 0.85) !important;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba($ocean, 0.6);
+  }
+}
+
+// Navigation
+.ta-nav {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  &__sep {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 1rem 0.6rem 0.4rem;
+    margin-top: 0.25rem;
+  }
+
+  &__link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.7rem !important;
+    padding: 0.62rem 0.75rem !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    color: $sb-text !important;
+    font-size: 0.84rem !important;
+    font-weight: 400 !important;
+    transition: background 0.15s, color 0.15s !important;
+    position: relative !important;
+
+    span:not(.material-icons-round):not(.ta-nav__badge) {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      min-width: 0 !important;
+    }
+
+    .material-icons-round {
+      font-size: 1.15rem !important;
+      color: rgba(255,255,255,0.35) !important;
+      flex-shrink: 0;
+      transition: color 0.15s !important;
+    }
+
+    &:hover {
+      background: rgba(255,255,255,0.07) !important;
+      color: $sb-text-hover !important;
+      .material-icons-round { color: rgba(255,255,255,0.7) !important; }
+    }
+
+    &.active {
+      background: $sb-active-bg !important;
+      color: $sb-active-txt !important;
+      font-weight: 600 !important;
+      border-left: 2px solid $ocean !important;
+      padding-left: calc(0.75rem - 2px) !important;
+
+      .material-icons-round { color: lighten($ocean, 20%) !important; }
+    }
+  }
+
+  &__badge {
+    margin-left: auto;
+    background: $red;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 0.3rem;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
+
+// Footer
+.ta-sidebar-footer {
+  border-top: 1px solid $sb-border;
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  background: rgba(0,0,0,0.15);
+}
+
+.ta-user {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 0;
+
+  &__avatar {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, $ocean, $ocean-dark);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  &__info { min-width: 0; }
+
+  &__name {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__role {
+    display: block;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.05rem;
+  }
+}
+
+.ta-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.ta-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.4) !important;
+  transition: background 0.15s, color 0.15s;
+  font-family: $font-sans;
+  text-decoration: none !important;
+
+  .material-icons-round { font-size: 1.05rem !important; }
+
+  &:hover {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.85) !important;
+  }
+
+  &--danger:hover {
+    background: rgba($red, 0.2);
+    color: #fca5a5 !important;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// TOPBAR (breadcrumbs repurposed as content header)
+// ══════════════════════════════════════════════════════════════════════
+div.breadcrumbs {
+  background: $white !important;
+  border-bottom: 1px solid $border !important;
+  padding: 0.85rem 2.5rem !important;
+  font-size: 0.8rem !important;
+  color: $text-mid !important;
+  font-family: $font-sans !important;
+  margin: 0 !important;
+
+  a { color: $ocean !important; text-decoration: none !important; }
+  a:hover { text-decoration: underline !important; }
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// CONTENT TITLES
+// ══════════════════════════════════════════════════════════════════════
+#content h1 {
+  font-family: $font-serif !important;
+  font-weight: 300 !important;
+  color: $text !important;
+  font-size: 1.75rem !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+#content h2 {
+  font-family: $font-sans !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: $text !important;
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// MESSAGES (alerts)
+// ══════════════════════════════════════════════════════════════════════
+ul.messagelist {
+  margin: 0 !important;
+  padding: 0.75rem 2.5rem !important;
+  background: transparent !important;
+
+  li {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.6rem 1rem !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
+    font-family: $font-sans !important;
+    margin-bottom: 0.5rem !important;
+    border: 1px solid transparent !important;
+
+    &.success { background: #f0fdf4 !important; color: #166534 !important; border-color: #bbf7d0 !important; }
+    &.warning { background: #fffbeb !important; color: #92400e !important; border-color: #fde68a !important; }
+    &.error   { background: #fef2f2 !important; color: #991b1b !important; border-color: #fecaca !important; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// DJANGO ADMIN OVERRIDES (changelist, changeform, etc.)
+// ══════════════════════════════════════════════════════════════════════
+
+// Module containers
+.module {
+  background: $card-bg !important;
+  border: 1px solid $border !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06) !important;
+}
+
+.module h2, .module caption {
+  background: $ocean !important;
+  color: #fff !important;
+  font-family: $font-sans !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  padding: 0.7rem 1rem !important;
+}
+
+// Changelist table
+#changelist table {
+  border-collapse: collapse !important;
+  background: $card-bg !important;
+}
+
+#result_list thead th {
+  background: $ocean !important;
+  color: #fff !important;
+  font-family: $font-sans !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  padding: 0.75rem 1rem !important;
+  border: none !important;
+  white-space: nowrap;
+
+  a, a:link, a:visited { color: rgba(255,255,255,0.85) !important; }
+  a:hover { color: #fff !important; }
+}
+
+#result_list td {
+  padding: 0.8rem 1rem !important;
+  border-bottom: 1px solid $border !important;
+  font-size: 0.85rem !important;
+  vertical-align: middle !important;
+  color: $text !important;
+}
+
+tr.row1, #result_list tr:nth-child(odd)  td { background: $card-bg !important; }
+tr.row2, #result_list tr:nth-child(even) td { background: #f8fafc !important; }
+#result_list tr:hover td { background: $ocean-light !important; }
+
+// Object tools
+.object-tools {
+  margin: 0 !important;
+  padding: 0.5rem 0 1rem !important;
+
+  li a {
+    background: $ocean !important;
+    border-radius: 6px !important;
+    font-family: $font-sans !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    padding: 0.45rem 1rem !important;
+    color: #fff !important;
+    transition: background 0.2s !important;
+    text-decoration: none !important;
+    &:hover { background: $ocean-dark !important; }
+  }
+}
+
+// ── CHANGELIST — filter bar horizontale AU-DESSUS du tableau ─────────
+// display:block casse le flex de Django et laisse le filtre (premier
+// dans le DOM) apparaître naturellement avant le tableau.
+#changelist {
+  display: block !important;
+}
+
+#changelist-filter {
+  float: none !important;
+  width: 100% !important;
+  border: 1px solid $border !important;
+  border-radius: 10px !important;
+  margin-bottom: 1rem !important;
+  padding: 0.55rem 1.25rem !important;
+  background: $card-bg !important;
+  display: block !important;
+  line-height: 2.2 !important;
+  box-sizing: border-box !important;
+
+  // "Afficher les nombres" — lien inutile, on le cache
+  > a, > .facets { display: none !important; }
+
+  // Titre "Filter" — masqué
+  > h2 { display: none !important; }
+
+  // Label de section : inline pour rester sur la même ligne
+  > h3 {
+    display: inline !important;
+    font-family: $font-sans !important;
+    font-size: 0.63rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: $text-muted !important;
+    border: none !important;
+    padding: 0 0.45rem 0 0.75rem !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    border-left: 1px solid $border !important;
+
+    &:first-of-type {
+      padding-left: 0 !important;
+      border-left: none !important;
+    }
+  }
+
+  // Liste de chips : inline-flex pour rester sur la même ligne
+  > ul {
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.25rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    list-style: none !important;
+  }
+
+  li {
+    display: inline-block !important;
+    padding: 0 !important;
+  }
+
+  li a {
+    display: inline-block !important;
+    padding: 0.18rem 0.6rem !important;
+    border-radius: 9999px !important;
+    font-family: $font-sans !important;
+    font-size: 0.74rem !important;
+    font-weight: 500 !important;
+    background: #f1f5f9 !important;
+    color: $text-mid !important;
+    border: 1px solid $border !important;
+    text-decoration: none !important;
+    transition: all 0.15s !important;
+    white-space: nowrap !important;
+
+    &:hover {
+      background: $ocean-light !important;
+      color: $ocean !important;
+      border-color: rgba($ocean, 0.5) !important;
+    }
+  }
+
+  li.selected a {
+    background: $ocean !important;
+    color: #fff !important;
+    border-color: $ocean !important;
+    font-weight: 600 !important;
+  }
+}
+
+// Change form fieldsets
+fieldset.module {
+  border: 1px solid $border !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  margin-bottom: 1rem !important;
+  background: $card-bg !important;
+}
+
+fieldset h2 {
+  background: $ocean !important;
+  color: #fff !important;
+  font-family: $font-sans !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  padding: 0.7rem 1rem !important;
+  margin: 0 !important;
+}
+
+.form-row {
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+
+  label {
+    font-family: $font-sans !important;
+    font-size: 0.82rem !important;
+    color: $text-mid !important;
+    font-weight: 500 !important;
+  }
+}
+
+// Submit row
+.submit-row {
+  background: #f8fafc !important;
+  border-top: 1px solid $border !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 0 0 10px 10px !important;
+  display: flex !important;
+  gap: 0.5rem !important;
+  flex-wrap: wrap !important;
+
+  input[type="submit"],
+  .default {
+    background: $ocean !important;
+    border: none !important;
+    border-radius: 7px !important;
+    font-family: $font-sans !important;
+    font-weight: 600 !important;
+    font-size: 0.84rem !important;
+    padding: 0.55rem 1.2rem !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+    &:hover { background: $ocean-dark !important; }
+  }
+
+  .deletelink {
+    background: rgba($red, 0.1) !important;
+    color: $red !important;
+    border-radius: 7px !important;
+    padding: 0.55rem 1.2rem !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: background 0.2s !important;
+    &:hover { background: $red !important; color: #fff !important; }
+  }
+}
+
+// Inline admin
+.inline-group {
+  border: 1px solid $border !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  margin-bottom: 1.25rem !important;
+  background: $card-bg !important;
+
+  h2 {
+    background: $ocean !important;
+    color: #fff !important;
+    font-family: $font-sans !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+    padding: 0.7rem 1rem !important;
+    margin: 0 !important;
+  }
+}
+
+.inline-related .module {
+  border: none !important;
+  border-bottom: 1px solid $border !important;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+// Pagination
+.paginator {
+  font-family: $font-sans !important;
+  color: $text-mid !important;
+  font-size: 0.82rem !important;
+  padding: 0.75rem 0 !important;
+
+  a { color: $ocean !important; }
+  .this-page {
+    background: $ocean !important;
+    color: #fff !important;
+    border-radius: 4px !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+}
+
+// Help text
+.help {
+  color: $text-muted !important;
+  font-size: 0.77rem !important;
+  font-style: italic !important;
+}
+
+// Error list
+.errorlist {
+  li {
+    background: #fef2f2 !important;
+    color: $red !important;
+    border: 1px solid #fecaca !important;
+    border-radius: 6px !important;
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.82rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+}
+
+// Inputs & Forms
+select, textarea, input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+  font-family: $font-sans !important;
+  border-radius: 6px !important;
+  border: 1px solid $border !important;
+  background: $white !important;
+  color: $text !important;
+  font-size: 0.875rem !important;
+  padding: 0.45rem 0.75rem !important;
+  transition: border-color 0.15s, box-shadow 0.15s !important;
+
+  &:focus {
+    border-color: $ocean !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba($ocean, 0.12) !important;
+  }
+}
+
+// La couleur des liens est gérée par la variable CSS --link-fg: $ocean
+// définie en haut du fichier — pas besoin de règle #content a:link ici.
+// Les boutons avec fond coloré ont leurs propres overrides ci-dessous.
+
+// ── Bouton "Add" (object-tools) ───────────────────────────────────────
+.object-tools a,
+.object-tools a:link,
+.object-tools a:visited,
+.object-tools a:hover         { color: #fff !important; }
+
+// ── Lien "Supprimer" dans le submit-row ──────────────────────────────
+.submit-row .deletelink,
+.submit-row .deletelink:link,
+.submit-row .deletelink:visited { color: $red !important; }
+.submit-row .deletelink:hover   { color: #fff !important; }
+
+// ── Boutons dashboard ─────────────────────────────────────────────────
+.dash-btn--primary,
+.dash-btn--primary:link,
+.dash-btn--primary:visited,
+.dash-btn--primary:hover      { color: #fff !important; }
+
+// Action select
+#changelist .actions {
+  background: $white !important;
+  border-bottom: 1px solid $border !important;
+  padding: 0.6rem 1rem !important;
+
+  select { font-size: 0.82rem !important; }
+
+  button[type="submit"] {
+    background: $ocean !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-family: $font-sans !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    padding: 0.4rem 0.85rem !important;
+    cursor: pointer !important;
+    margin-left: 0.35rem !important;
+    &:hover { background: $ocean-dark !important; }
+  }
+
+  .question { color: $text-mid !important; font-size: 0.82rem !important; }
+  .all { font-size: 0.82rem !important; a { color: $ocean !important; } }
+}
+
+// Search
+#searchbar {
+  font-family: $font-sans !important;
+  border-radius: 6px !important;
+  border: 1px solid $border !important;
+  padding: 0.45rem 0.75rem !important;
+  font-size: 0.875rem !important;
+  &:focus { border-color: $ocean !important; box-shadow: 0 0 0 3px rgba($ocean, 0.12) !important; }
+}
+
+input#searchbar + button[type="submit"] {
+  background: $ocean !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  font-family: $font-sans !important;
+  font-size: 0.82rem !important;
+  padding: 0.45rem 0.9rem !important;
+  cursor: pointer !important;
+  &:hover { background: $ocean-dark !important; }
+}
+
+// Login page override
+.login #header { display: none !important; }
+.login .main, .login #main { margin-left: 0 !important; }
+
+// ══════════════════════════════════════════════════════════════════════
+// DASHBOARD — index.html components
+// ══════════════════════════════════════════════════════════════════════
+
+.dash {
+  font-family: $font-sans;
+  max-width: 1400px;
+  padding-bottom: 3rem;
+}
+
+// ── TOPBAR ────────────────────────────────────────────────────────────
+.dash-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border;
+
+  &__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $ocean;
+    margin-bottom: 0.3rem;
+  }
+
+  &__title {
+    font-family: $font-serif !important;
+    font-size: 2rem !important;
+    font-weight: 300 !important;
+    color: $text !important;
+    margin: 0 !important;
+    border: none !important;
+    padding: 0 !important;
+    line-height: 1.15;
+  }
+
+  &__actions { display: flex; gap: 0.6rem; align-items: center; }
+}
+
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: all 0.2s;
+  .material-icons-round { font-size: 1rem; }
+
+  &--primary {
+    background: $ocean;
+    color: #fff !important;
+    &:hover { background: $ocean-dark; box-shadow: 0 4px 12px rgba($ocean, 0.25); }
+  }
+
+  &--ghost {
+    background: $white;
+    color: $text-mid !important;
+    border: 1.5px solid $border;
+    &:hover { border-color: $ocean; color: $ocean !important; }
+  }
+}
+
+// ── KPI STRIP ─────────────────────────────────────────────────────────
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 1100px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px)  { grid-template-columns: 1fr; }
+}
+
+.kpi {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: $card-bg;
+  border: 1px solid $border;
+  border-radius: 12px;
+  text-decoration: none !important;
+  color: $text !important;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+
+  &:hover {
+    border-color: $ocean;
+    box-shadow: 0 4px 16px rgba($ocean, 0.1);
+    transform: translateY(-2px);
+    .kpi__arrow { opacity: 1; transform: translateX(0); }
+  }
+
+  &--alert { border-left: 3px solid $orange; }
+
+  &__icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    .material-icons-round { font-size: 1.4rem !important; color: #fff; }
+
+    &--ocean { background: $ocean; }
+    &--sand  { background: $sand; }
+    &--green { background: $green; }
+    &--terra { background: #8b4513; }
+  }
+
+  &__body { flex: 1; min-width: 0; }
+
+  &__num {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: $text !important;
+    letter-spacing: -0.02em;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.75rem;
+    color: $text-muted;
+    margin-top: 0.25rem;
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0.75rem; right: 2.25rem;
+    background: $red;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+    min-width: 18px; height: 18px;
+    padding: 0 0.25rem;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  &__arrow {
+    font-size: 1rem !important;
+    color: $text-muted;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+}
+
+// ── GRID LAYOUT ───────────────────────────────────────────────────────
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.25rem;
+  align-items: start;
+
+  @media (max-width: 1024px) { grid-template-columns: 1fr; }
+}
+
+// ── CARDS ─────────────────────────────────────────────────────────────
+.dash-card {
+  background: $card-bg;
+  border: 1px solid $border;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+
+  &:last-child { margin-bottom: 0; }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid $border;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $text;
+      .material-icons-round { font-size: 1.1rem !important; color: $ocean; }
+    }
+  }
+}
+
+.dash-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $ocean !important;
+  text-decoration: none !important;
+  &:hover { color: $ocean-dark !important; text-decoration: underline !important; }
+}
+
+.dot-alert {
+  background: rgba($red, 0.1);
+  color: $red;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+// ── DEMANDES LIST ─────────────────────────────────────────────────────
+.demandes-list { display: flex; flex-direction: column; }
+
+.demande-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid lighten($border, 2%);
+  text-decoration: none !important;
+  color: $text !important;
+  transition: background 0.15s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: rgba($ocean, 0.025); }
+
+  &__avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, $ocean, $ocean-dark);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+
+  &__body { flex: 1; min-width: 0; }
+
+  &__name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta { display: flex; gap: 0.35rem; margin-top: 0.2rem; flex-wrap: wrap; }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  &__date {
+    font-size: 0.72rem;
+    color: $text-muted;
+    white-space: nowrap;
+  }
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.67rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+
+  &--type   { background: rgba($ocean, 0.1);  color: $ocean; }
+  &--budget { background: rgba($sand, 0.15);  color: darken($sand, 25%); }
+}
+
+.status {
+  font-size: 0.67rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+
+  &--done    { background: rgba($green, 0.1);   color: $green; }
+  &--pending { background: rgba($orange, 0.12); color: darken($orange, 8%); }
+}
+
+// ── QUICK ACTIONS ─────────────────────────────────────────────────────
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: $border;
+}
+
+.qa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem 0.5rem;
+  background: $white;
+  text-decoration: none !important;
+  color: $text-mid !important;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s;
+
+  &__icon {
+    width: 38px; height: 38px;
+    background: rgba($ocean, 0.08);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    .material-icons-round { font-size: 1.2rem !important; color: $ocean; }
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background: $ocean;
+    color: #fff !important;
+    .qa__icon {
+      background: rgba(255,255,255,0.2);
+      .material-icons-round { color: #fff; }
+    }
+  }
+}
+
+// ── MODULES LIST ──────────────────────────────────────────────────────
+.modules-list { display: flex; flex-direction: column; }
+
+.module-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.25rem;
+  border-bottom: 1px solid lighten($border, 2%);
+  text-decoration: none !important;
+  color: $text !important;
+  font-size: 0.84rem;
+  font-weight: 500;
+  transition: background 0.15s;
+
+  &:last-child { border-bottom: none; }
+  &:hover {
+    background: rgba($ocean, 0.03);
+    .module-row__arrow { opacity: 1; transform: translateX(0); }
+  }
+
+  &__icon { font-size: 1.1rem !important; color: $ocean; flex-shrink: 0; }
+  &__label { flex: 1; }
+  &__arrow {
+    font-size: 1rem !important;
+    color: $text-muted;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+}
+
+// ── EMPTY STATE ────────────────────────────────────────────────────────
+.dash-empty {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  color: $text-muted;
+  .material-icons-round { font-size: 2.5rem !important; display: block; margin-bottom: 0.75rem; opacity: 0.5; }
+  p { font-size: 0.875rem; }
+}

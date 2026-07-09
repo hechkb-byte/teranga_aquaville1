@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Restauration & Boutiques | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--restauration">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">Gastronomie</span>
+    <h1>Restauration & Boutiques</h1>
+    <p>Une expérience culinaire en bord de mer, face à l'océan Atlantique</p>
+  </div>
+</section>
+
+<section class="restauration section">
+  <div class="container">
+    <div class="restauration__layout">
+      <div data-aos="fade-right">
+        <img src="/media/villas/villa-touba-principale.png" alt="Restaurant Teranga Aquaville" class="restauration__img">
+      </div>
+      <div class="restauration__content" data-aos="fade-left">
+        <span class="section-eyebrow">Restaurant</span>
+        <h2>Une table avec vue sur l'Atlantique</h2>
+        <p>Nos restaurants en bord de mer vous proposent le meilleur de la cuisine locale sénégalaise et des saveurs internationales, dans un cadre exceptionnel face à l'océan.</p>
+        <ul class="restauration__liste">
+          <li><span class="material-icons-round">restaurant</span> Cuisine locale & internationale</li>
+          <li><span class="material-icons-round">water</span> Vue panoramique sur l'océan</li>
+          <li><span class="material-icons-round">wb_sunny</span> Service midi & soir</li>
+          <li><span class="material-icons-round">local_bar</span> Bar & cocktails tropicaux</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="restauration__layout restauration__layout--reverse">
+      <div class="restauration__content" data-aos="fade-right">
+        <span class="section-eyebrow">Boutiques</span>
+        <h2>L'artisanat sénégalais à votre portée</h2>
+        <p>Nos boutiques vous proposent une sélection de mode, artisanat local, objets de décoration et souvenirs authentiques, directement sur le complexe.</p>
+        <ul class="restauration__liste">
+          <li><span class="material-icons-round">checkroom</span> Mode & vêtements</li>
+          <li><span class="material-icons-round">brush</span> Artisanat local</li>
+          <li><span class="material-icons-round">home</span> Décoration</li>
+          <li><span class="material-icons-round">card_giftcard</span> Souvenirs</li>
+        </ul>
+      </div>
+      <div data-aos="fade-left">
+        <img src="/media/villas/villa-pasteur-ben-principale.png" alt="Boutiques Teranga Aquaville" class="restauration__img">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

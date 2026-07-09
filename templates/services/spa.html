@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load villa_tags %}
+{% block title %}Spa & Massage Peri'Care | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--spa">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">Bien-être</span>
+    <h1>Spa & Massage</h1>
+    <p>Espace bien-être Peri'Care — soins exclusifs, forfaits et hammam</p>
+  </div>
+</section>
+
+<section class="spa section">
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Soins individuels</span>
+      <h2 class="section-title">Nos soins</h2>
+      <p>Tarif Teranga (+25%) · Remise résidents (−10%)</p>
+    </div>
+
+    <div class="tableau-wrapper" data-aos="fade-up">
+      <table class="tableau">
+        <thead>
+          <tr><th>Soin</th><th>Durée</th><th>Prix Teranga</th><th>Prix Résident</th></tr>
+        </thead>
+        <tbody>
+          {% for soin in soins %}
+          <tr>
+            <td>{{ soin.nom }}</td>
+            <td>{{ soin.duree|default:"—" }}</td>
+            <td>{{ soin.prix_teranga|format_prix }} FCFA</td>
+            <td>{{ soin.prix_resident|format_prix }} FCFA</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4">Soins à venir</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-header section-header--mt" data-aos="fade-up">
+      <span class="section-eyebrow">Forfaits</span>
+      <h2 class="section-title">Nos forfaits bien-être</h2>
+    </div>
+
+    <div class="forfaits-grid" data-aos="fade-up">
+      {% for forfait in forfaits %}
+      <div class="forfait-card">
+        <div class="forfait-card__header">
+          <h3>{{ forfait.nom }}</h3>
+        </div>
+        <div class="forfait-card__body">
+          {% if forfait.contenu %}<p class="forfait-card__contenu">{{ forfait.contenu }}</p>{% endif %}
+          <div class="forfait-card__prix">
+            <div>
+              <span class="prix-label">Prix Teranga</span>
+              <span class="prix-montant">{{ forfait.prix_teranga|format_prix }} FCFA</span>
+            </div>
+            <div>
+              <span class="prix-label">Prix Résident</span>
+              <span class="prix-montant prix-montant--resident">{{ forfait.prix_resident|format_prix }} FCFA</span>
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'contact' %}?type_bien=spa" class="btn btn--outline btn--sm">Réserver</a>
+      </div>
+      {% empty %}
+      <p>Forfaits à venir</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band__content" data-aos="fade-up">
+      <h2>Offrez-vous un moment de bien-être</h2>
+      <a href="{% url 'contact' %}?type_bien=spa" class="btn btn--primary btn--lg">Réserver</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

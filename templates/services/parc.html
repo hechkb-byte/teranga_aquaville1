@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load villa_tags %}
+{% block title %}Parc Aquatique | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--parc">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">Loisirs</span>
+    <h1>Parc Aquatique</h1>
+    <p>2 500 m² de sensations, géré par un opérateur marocain spécialisé</p>
+  </div>
+</section>
+
+<section class="parc section">
+  <div class="container">
+    <div class="parc__intro" data-aos="fade-up">
+      <div class="parc__attractions">
+        <h2>Les attractions</h2>
+        <div class="attractions-grid">
+          <div class="attraction-item"><span class="material-icons-round">water</span><span>Toboggans haute attraction</span></div>
+          <div class="attraction-item"><span class="material-icons-round">pool</span><span>Piscine familiale</span></div>
+          <div class="attraction-item"><span class="material-icons-round">child_care</span><span>Espace enfants</span></div>
+          <div class="attraction-item"><span class="material-icons-round">waves</span><span>Rivière lente</span></div>
+          <div class="attraction-item"><span class="material-icons-round">local_bar</span><span>Pool Bar</span></div>
+          <div class="attraction-item"><span class="material-icons-round">deck</span><span>Aire de détente</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Tarification</span>
+      <h2 class="section-title">Grille tarifaire</h2>
+      <p>Les résidents bénéficient d'une remise de 20%</p>
+    </div>
+
+    <div class="tableau-wrapper" data-aos="fade-up">
+      <table class="tableau">
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Visiteurs</th>
+            <th>Résidents <span class="badge-remise">−20%</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tarif in tarifs %}
+          <tr {% if tarif.gratuit %}class="tableau__gratuit"{% endif %}>
+            <td>{{ tarif.get_categorie_display }}</td>
+            <td>{% if tarif.gratuit %}Gratuit{% else %}{{ tarif.prix_visiteur|format_prix }} FCFA{% endif %}</td>
+            <td>{% if tarif.gratuit %}Gratuit{% else %}{{ tarif.prix_resident|format_prix }} FCFA{% endif %}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3">Tarifs à venir</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band__content" data-aos="fade-up">
+      <h2>Vivez au rythme de l'eau</h2>
+      <p>Devenez résident Teranga Aquaville et profitez du parc à tarif préférentiel</p>
+      <a href="{% url 'contact' %}" class="btn btn--primary btn--lg">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+.footer {
+  background: $text-dark;
+
+  &__top {
+    background: $text-dark;
+    color: rgba($white, 0.8);
+    padding: $space-xl 0 $space-lg;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: $space-lg;
+
+    @media (max-width: $bp-lg) { grid-template-columns: 1fr 1fr; }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  &__logo-link {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  &__logo-img {
+    height: 56px;
+    width: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  &__logo {
+    font-family: $font-serif;
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: $white;
+    margin-bottom: 1rem;
+    strong { color: $sand; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: $sand; }
+  }
+
+  &__brand {
+    p { font-size: 0.875rem; color: rgba($white, 0.6); margin-bottom: 0.5rem; }
+  }
+
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba($white, 0.5) !important;
+    font-size: 0.8rem !important;
+    .material-icons-round { font-size: 1rem; }
+  }
+
+  &__links-group {
+    h4 {
+      font-family: $font-sans;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: $sand;
+      margin-bottom: 1.25rem;
+    }
+
+    ul { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    a {
+      font-size: 0.875rem;
+      color: rgba($white, 0.65);
+      transition: $transition;
+      &:hover { color: $white; padding-left: 4px; }
+    }
+  }
+
+  &__contact-info {
+    h4 {
+      font-family: $font-sans;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: $sand;
+      margin-bottom: 1.25rem;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: rgba($white, 0.65);
+      margin-bottom: 0.6rem;
+      .material-icons-round { font-size: 1rem; color: $sand; }
+    }
+
+    .btn--outline {
+      border-color: rgba($white, 0.3);
+      color: rgba($white, 0.8);
+      margin-top: 0.75rem;
+      &:hover { background: rgba($white, 0.1); border-color: $white; color: $white; }
+    }
+  }
+
+  &__bottom {
+    background: rgba($white, 0.04);
+    border-top: 1px solid rgba($white, 0.08);
+    padding: 1.25rem 0;
+
+    p {
+      font-size: 0.8rem;
+      color: rgba($white, 0.35);
+      text-align: center;
+    }
+  }
+}

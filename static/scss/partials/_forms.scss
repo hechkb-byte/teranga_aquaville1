@@ -1,0 +1,249 @@
+// ── ALERTES FORMULAIRE ────────────────────────────────────────────────
+.form-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  .material-icons-round { font-size: 1.2rem; flex-shrink: 0; }
+
+  &--error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+}
+
+// ── FILTRES ───────────────────────────────────────────────────────────
+.filtres {
+  background: $white;
+  border-bottom: 1px solid $border;
+
+  &__form {
+    display: flex;
+    gap: $space-lg;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: $space-sm 0;
+  }
+
+  &__group { display: flex; align-items: center; gap: $space-sm; }
+
+  &__group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $text-light;
+    white-space: nowrap;
+  }
+
+  &__pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+}
+
+.pill {
+  padding: 0.4rem 1rem;
+  border-radius: $radius-full;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1.5px solid $border;
+  color: $text-mid;
+  transition: $transition;
+  cursor: pointer;
+
+  &:hover { border-color: $ocean; color: $ocean; }
+  &--active { background: $ocean; border-color: $ocean; color: $white; }
+}
+
+// ── CONTACT FORM ──────────────────────────────────────────────────────
+.contact {
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: $space-xl;
+    align-items: start;
+
+    @media (max-width: $bp-lg) { grid-template-columns: 1fr; }
+  }
+
+  &__info {
+    h3 { font-family: $font-serif; font-size: 1.8rem; margin-bottom: $space-md; }
+  }
+
+  &__info-item {
+    display: flex;
+    gap: $space-sm;
+    margin-bottom: $space-md;
+    align-items: flex-start;
+
+    .material-icons-round { font-size: 1.5rem; color: $ocean; margin-top: 2px; flex-shrink: 0; }
+    strong { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: $text-light; margin-bottom: 0.2rem; }
+    p, a { color: $text-dark; font-size: 0.95rem; }
+    a:hover { color: $ocean; }
+  }
+
+  &__map { margin-top: $space-md; border-radius: $radius-md; overflow: hidden; }
+}
+
+// ── MULTISTEP ─────────────────────────────────────────────────────────
+.multistep {
+  background: $white;
+  border-radius: $radius-xl;
+  padding: $space-lg;
+  box-shadow: $shadow-md;
+  border: 1px solid $border;
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: $space-lg;
+  }
+
+  &__step {
+    display: none;
+    &.active { display: block; }
+
+    &-title {
+      font-family: $font-serif;
+      font-size: 1.8rem;
+      margin-bottom: $space-md;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: $space-sm;
+    justify-content: space-between;
+    margin-top: $space-md;
+  }
+
+  &__next, &__prev { flex: 1; }
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+
+  &__dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: $border;
+    color: $text-light;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: $transition;
+  }
+
+  span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $text-light;
+  }
+
+  &.active, &.done {
+    .step-indicator__dot { background: $ocean; color: $white; }
+    span { color: $ocean; }
+  }
+
+  &__line {
+    flex: 1;
+    height: 2px;
+    background: $border;
+    margin-bottom: 1.5rem;
+    transition: background 0.3s;
+
+    &.done { background: $ocean; }
+  }
+}
+
+// OPTIONS GRID (formulaire multi-étapes)
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-sm;
+  margin-bottom: $space-md;
+
+  &--2 { grid-template-columns: repeat(2, 1fr); }
+
+  @media (max-width: $bp-md) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+}
+
+.option-card {
+  cursor: pointer;
+
+  input[type="radio"] { display: none; }
+
+  &__content {
+    border: 2px solid $border;
+    border-radius: $radius-md;
+    padding: 1rem;
+    text-align: center;
+    transition: $transition;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .material-icons-round { font-size: 1.75rem; color: $ocean-light; }
+    strong { font-size: 0.875rem; font-weight: 600; }
+    small { font-size: 0.75rem; color: $text-light; }
+  }
+
+  input:checked + .option-card__content {
+    border-color: $ocean;
+    background: rgba($ocean, 0.05);
+    .material-icons-round { color: $ocean; }
+    strong { color: $ocean; }
+  }
+
+  &:hover .option-card__content { border-color: $ocean-light; }
+}
+
+// FORM FIELDS
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-sm;
+
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+}
+
+.form-group {
+  margin-bottom: $space-sm;
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: $text-mid;
+    margin-bottom: 0.4rem;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid $border;
+    border-radius: $radius-md;
+    font-family: $font-sans;
+    font-size: 0.9rem;
+    color: $text-dark;
+    background: $white;
+    transition: $transition;
+    outline: none;
+
+    &:focus { border-color: $ocean; box-shadow: 0 0 0 3px rgba($ocean, 0.1); }
+    &::placeholder { color: $text-light; }
+  }
+
+  textarea { resize: vertical; min-height: 120px; }
+}

@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% block title %}Contact & Prise de rendez-vous | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--contact">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">Parlons-nous</span>
+    <h1>Contactez-nous</h1>
+    <p>Notre équipe vous répond sous 24 heures</p>
+  </div>
+</section>
+
+<section class="contact section">
+  <div class="container">
+    <div class="contact__layout">
+
+      <!-- FORMULAIRE MULTI-ÉTAPES -->
+      <div class="contact__form-wrapper">
+        <div class="multistep" id="multistep">
+
+          <!-- Indicateur d'étapes -->
+          <div class="multistep__progress">
+            <div class="step-indicator active" data-step="1">
+              <div class="step-indicator__dot">1</div>
+              <span>Votre projet</span>
+            </div>
+            <div class="step-indicator__line"></div>
+            <div class="step-indicator" data-step="2">
+              <div class="step-indicator__dot">2</div>
+              <span>Votre budget</span>
+            </div>
+            <div class="step-indicator__line"></div>
+            <div class="step-indicator" data-step="3">
+              <div class="step-indicator__dot">3</div>
+              <span>Vos coordonnées</span>
+            </div>
+          </div>
+
+          {% if error_rate %}
+          <div class="form-alert form-alert--error">
+            <span class="material-icons-round">block</span>
+            Trop de soumissions. Merci de patienter 10 minutes avant de réessayer.
+          </div>
+          {% endif %}
+
+          <form method="POST" action="{% url 'contact' %}" id="contactForm">
+            {% csrf_token %}
+            {# Honeypot anti-bot — ne pas afficher, ne pas remplir #}
+            <div style="display:none" aria-hidden="true">
+              {{ form.website }}
+            </div>
+
+            <!-- Champs cachés pour conserver les données entre étapes -->
+            <input type="hidden" name="step" id="currentStep" value="1">
+            <input type="hidden" name="type_bien" id="hidden_type_bien">
+            <input type="hidden" name="budget" id="hidden_budget">
+
+            <!-- ÉTAPE 1 — Type de bien -->
+            <div class="multistep__step active" data-step="1">
+              <h3 class="multistep__step-title">Quel est votre projet ?</h3>
+              <div class="options-grid">
+                <label class="option-card">
+                  <input type="radio" name="type_bien_radio" value="vente_f4">
+                  <div class="option-card__content">
+                    <span class="material-icons-round">villa</span>
+                    <strong>Acheter — F4</strong>
+                    <small>À partir de 175M FCFA</small>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="type_bien_radio" value="vente_f5">
+                  <div class="option-card__content">
+                    <span class="material-icons-round">villa</span>
+                    <strong>Acheter — F5</strong>
+                    <small>À partir de 240M FCFA</small>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="type_bien_radio" value="vente_f6">
+                  <div class="option-card__content">
+                    <span class="material-icons-round">villa</span>
+                    <strong>Acheter — F6</strong>
+                    <small>À partir de 320M FCFA</small>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="type_bien_radio" value="location_nuit">
+                  <div class="option-card__content">
+                    <span class="material-icons-round">nightlight</span>
+                    <strong>Louer — courte durée</strong>
+                    <small>À partir de 175 000 FCFA/nuit</small>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="type_bien_radio" value="location_mois">
+                  <div class="option-card__content">
+                    <span class="material-icons-round">calendar_month</span>
+                    <strong>Louer — longue durée</strong>
+                    <small>À partir de 4,5M FCFA/mois</small>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="type_bien_radio" value="autre">
+                  <div class="option-card__content">
+                    <span class="material-icons-round">chat</span>
+                    <strong>Autre demande</strong>
+                    <small>Parc, Spa, Restauration…</small>
+                  </div>
+                </label>
+              </div>
+              <button type="button" class="btn btn--primary btn--full multistep__next" data-next="2">
+                Suivant <span class="material-icons-round">arrow_forward</span>
+              </button>
+            </div>
+
+            <!-- ÉTAPE 2 — Budget -->
+            <div class="multistep__step" data-step="2">
+              <h3 class="multistep__step-title">Quel est votre budget ?</h3>
+              <div class="options-grid options-grid--2">
+                <label class="option-card">
+                  <input type="radio" name="budget_radio" value="moins_175m">
+                  <div class="option-card__content"><strong>Moins de 175M FCFA</strong></div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="budget_radio" value="175_240m">
+                  <div class="option-card__content"><strong>175M – 240M FCFA</strong></div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="budget_radio" value="240_320m">
+                  <div class="option-card__content"><strong>240M – 320M FCFA</strong></div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="budget_radio" value="plus_320m">
+                  <div class="option-card__content"><strong>Plus de 320M FCFA</strong></div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="budget_radio" value="location">
+                  <div class="option-card__content"><strong>Location (pas d'achat)</strong></div>
+                </label>
+              </div>
+              <div class="multistep__nav">
+                <button type="button" class="btn btn--outline multistep__prev" data-prev="1">
+                  <span class="material-icons-round">arrow_back</span> Retour
+                </button>
+                <button type="button" class="btn btn--primary multistep__next" data-next="3">
+                  Suivant <span class="material-icons-round">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ÉTAPE 3 — Coordonnées -->
+            <div class="multistep__step" data-step="3">
+              <h3 class="multistep__step-title">Vos coordonnées</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="prenom">Prénom *</label>
+                  <input type="text" name="prenom" id="prenom" required placeholder="Votre prénom">
+                </div>
+                <div class="form-group">
+                  <label for="nom">Nom *</label>
+                  <input type="text" name="nom" id="nom" required placeholder="Votre nom">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" name="email" id="email" required placeholder="votre@email.com">
+              </div>
+              <div class="form-group">
+                <label for="telephone">Téléphone *</label>
+                <input type="tel" name="telephone" id="telephone" required placeholder="+221 7X XXX XX XX">
+              </div>
+              <div class="form-group">
+                <label for="message">Message (optionnel)</label>
+                <textarea name="message" id="message" rows="4" placeholder="Précisez votre demande..."></textarea>
+              </div>
+              <div class="multistep__nav">
+                <button type="button" class="btn btn--outline multistep__prev" data-prev="2">
+                  <span class="material-icons-round">arrow_back</span> Retour
+                </button>
+                <button type="submit" class="btn btn--primary">
+                  Envoyer <span class="material-icons-round">send</span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- INFOS CONTACT -->
+      <div class="contact__info">
+        <h3>Nos coordonnées</h3>
+        <div class="contact__info-item">
+          <span class="material-icons-round">location_on</span>
+          <div>
+            <strong>Adresse</strong>
+            <p>Pointe Sarène, Petite Côte<br>Sénégal</p>
+          </div>
+        </div>
+        <div class="contact__info-item">
+          <span class="material-icons-round">phone</span>
+          <div>
+            <strong>Téléphone</strong>
+            <p><a href="tel:+221330000000">+221 33 000 00 00</a></p>
+          </div>
+        </div>
+        <div class="contact__info-item">
+          <span class="material-icons-round">email</span>
+          <div>
+            <strong>Email</strong>
+            <p><a href="mailto:contact@teranga-aquaville.sn">contact@teranga-aquaville.sn</a></p>
+          </div>
+        </div>
+
+        <!-- Carte OpenStreetMap (sans clé API) -->
+        <div class="contact__map">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-16.9,14.3,-16.7,14.5&layer=mapnik&marker=14.4,-16.8"
+            width="100%" height="280" frameborder="0"
+            style="border-radius: 8px;"
+            title="Carte Pointe Sarène">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

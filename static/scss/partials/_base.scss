@@ -1,0 +1,75 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; background: $text-dark; }
+
+body {
+  font-family: $font-sans;
+  font-weight: 400;
+  color: $text-dark;
+  background: $white;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $font-serif;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+h2 { font-size: clamp(2rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+h4 { font-size: 1.2rem; font-weight: 500; font-family: $font-sans; }
+
+a { color: inherit; text-decoration: none; transition: $transition; }
+img { max-width: 100%; height: auto; display: block; }
+ul { list-style: none; }
+
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 $container-pad;
+}
+
+.section { padding: $space-xl 0; }
+.section--sm { padding: $space-md 0; }
+.section--alt { background: $sand-pale; }
+
+.section-header {
+  text-align: center;
+  margin-bottom: $space-lg;
+
+  &--mt { margin-top: $space-xl; }
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $sand;
+  margin-bottom: $space-sm;
+}
+
+.section-title {
+  color: $text-dark;
+  margin-bottom: $space-sm;
+}
+
+.material-icons-round {
+  font-size: inherit;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.empty-state {
+  text-align: center;
+  padding: $space-xl 0;
+  color: $text-light;
+
+  .material-icons-round { font-size: 3rem; margin-bottom: $space-sm; display: block; }
+}

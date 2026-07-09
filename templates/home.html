@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Teranga Aquaville — Villas premium, Pointe Sarène{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__media">
+    <img src="/media/villas/villa-touba-principale.png" alt="Teranga Aquaville" class="hero__image">
+    <div class="hero__overlay"></div>
+  </div>
+  <div class="hero__content container">
+    <p class="hero__eyebrow" data-aos="fade-up">Pointe Sarène · Petite Côte du Sénégal</p>
+    <h1 class="hero__title" data-aos="fade-up" data-aos-delay="100">
+      L'art de vivre<br>face à l'Atlantique
+    </h1>
+    <p class="hero__subtitle" data-aos="fade-up" data-aos-delay="200">
+      19 villas privées avec piscine, parc aquatique et spa au cœur de la Petite Côte
+    </p>
+    <div class="hero__actions" data-aos="fade-up" data-aos-delay="300">
+      <a href="{% url 'villas_vente' %}" class="btn btn--primary btn--lg">Voir les villas</a>
+      <a href="{% url 'contact' %}" class="btn btn--outline-light btn--lg">Nous contacter</a>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <span class="material-icons-round">expand_more</span>
+  </div>
+</section>
+
+<!-- OFFRES RAPIDES -->
+<section class="offres section">
+  <div class="container">
+    <div class="offres__grid">
+      <a href="{% url 'villas_vente' %}" class="offre-card" data-aos="fade-up">
+        <div class="offre-card__icon"><span class="material-icons-round">villa</span></div>
+        <h3>Villas à vendre</h3>
+        <p>19 villas VEFA personnalisables, livrées avec piscine privée</p>
+        <span class="offre-card__link">Voir les offres <span class="material-icons-round">arrow_forward</span></span>
+      </a>
+      <a href="{% url 'villas_location' %}" class="offre-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="offre-card__icon"><span class="material-icons-round">key</span></div>
+        <h3>Villas à louer</h3>
+        <p>Séjours courte ou longue durée, Standard ou Bord de mer</p>
+        <span class="offre-card__link">Voir les tarifs <span class="material-icons-round">arrow_forward</span></span>
+      </a>
+      <a href="{% url 'parc_aquatique' %}" class="offre-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="offre-card__icon"><span class="material-icons-round">pool</span></div>
+        <h3>Loisirs & Bien-être</h3>
+        <p>Parc aquatique 2 500 m², spa Peri'Care, restauration bord de mer</p>
+        <span class="offre-card__link">Explorer <span class="material-icons-round">arrow_forward</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- POURQUOI TERANGA -->
+<section class="pourquoi section section--alt">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Notre différence</span>
+      <h2 class="section-title">Pourquoi Teranga Aquaville ?</h2>
+    </div>
+    <div class="pourquoi__grid">
+      <div class="pourquoi__item" data-aos="fade-up">
+        <span class="material-icons-round pourquoi__icon">location_on</span>
+        <h4>Emplacement d'exception</h4>
+        <p>Pointe Sarène, l'un des plus beaux sites de la Petite Côte, face à l'océan Atlantique</p>
+      </div>
+      <div class="pourquoi__item" data-aos="fade-up" data-aos-delay="100">
+        <span class="material-icons-round pourquoi__icon">apartment</span>
+        <h4>Villas personnalisables</h4>
+        <p>F4, F5 et F6 livrées avec piscine privée, jardin et terrasse tropicale</p>
+      </div>
+      <div class="pourquoi__item" data-aos="fade-up" data-aos-delay="200">
+        <span class="material-icons-round pourquoi__icon">sports_soccer</span>
+        <h4>Loisirs complets</h4>
+        <p>Parc aquatique, terrain homologué, salle de sport, spa — tout sur place</p>
+      </div>
+      <div class="pourquoi__item" data-aos="fade-up" data-aos-delay="300">
+        <span class="material-icons-round pourquoi__icon">verified</span>
+        <h4>Paiement échelonné</h4>
+        <p>8 appels de fonds liés à l'avancement des travaux — sécurité totale</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="galerie section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Le complexe</span>
+      <h2 class="section-title">Un cadre de vie exceptionnel</h2>
+    </div>
+  </div>
+  <div class="galerie__grid" data-aos="fade-up">
+    <div class="galerie__item galerie__item--large">
+      <a href="/media/villas/villa-ayo-principale.png" class="glightbox" data-gallery="complexe" data-glightbox="title: Villa AYO; description: Teranga Aquaville — Pointe Sarène">
+        <img src="/media/villas/villa-ayo-principale.png" alt="Villa AYO">
+      </a>
+    </div>
+    <div class="galerie__item">
+      <a href="/media/villas/villa-ayo-2.png" class="glightbox" data-gallery="complexe" data-glightbox="title: Villa AYO — Vue intérieure">
+        <img src="/media/villas/villa-ayo-2.png" alt="Villa AYO intérieur">
+      </a>
+    </div>
+    <div class="galerie__item">
+      <a href="/media/villas/villa-pasteur-ben-principale.png" class="glightbox" data-gallery="complexe" data-glightbox="title: Villa Pasteur BEN — Bord de mer">
+        <img src="/media/villas/villa-pasteur-ben-principale.png" alt="Villa Pasteur BEN">
+      </a>
+    </div>
+    <div class="galerie__item">
+      <a href="/media/villas/villa-pasteur-ben-2.png" class="glightbox" data-gallery="complexe" data-glightbox="title: Villa Pasteur BEN — Vue intérieure">
+        <img src="/media/villas/villa-pasteur-ben-2.png" alt="Villa Pasteur BEN intérieur">
+      </a>
+    </div>
+    <div class="galerie__item">
+      <a href="/media/villas/villa-touba-2.png" class="glightbox" data-gallery="complexe" data-glightbox="title: Villa Touba — Vue intérieure">
+        <img src="/media/villas/villa-touba-2.png" alt="Villa Touba intérieur">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA CONTACT -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band__content" data-aos="fade-up">
+      <h2>Intéressé par une villa ?</h2>
+      <p>Notre équipe vous accompagne de la réservation à la remise des clés</p>
+      <a href="{% url 'contact' %}" class="btn btn--primary btn--lg">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

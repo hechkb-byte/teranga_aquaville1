@@ -1,0 +1,145 @@
+{% load sass_tags static i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — Teranga Aquaville</title>
+  <link rel="stylesheet" href="{% static 'vendor/google-fonts.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/material-icons.css' %}">
+  <link rel="stylesheet" href="{% sass_src 'scss/admin-login.scss' %}">
+</head>
+<body class="admin-login">
+
+  <div class="login-split">
+
+    <!-- PANNEAU GAUCHE — visuel brand -->
+    <div class="login-split__brand">
+      <div class="login-split__brand-overlay"></div>
+      <div class="login-split__brand-content">
+        <div class="login-brand-logo">
+          <img src="{% static 'img/logo-blanc.jpg' %}" alt="Teranga Aquaville" class="login-brand-logo__img">
+          <span class="login-brand-logo__text">Teranga <strong>Aquaville</strong></span>
+        </div>
+        <h1 class="login-brand-title">Espace<br>Administration</h1>
+        <p class="login-brand-subtitle">Gérez les villas, les demandes clients,<br>les tarifs et les contenus du site.</p>
+        <div class="login-brand-stats">
+          <div class="login-stat">
+            <span class="login-stat__num">19</span>
+            <span class="login-stat__label">Villas</span>
+          </div>
+          <div class="login-stat">
+            <span class="login-stat__num">6</span>
+            <span class="login-stat__label">Tarifs VEFA</span>
+          </div>
+          <div class="login-stat">
+            <span class="login-stat__num">8</span>
+            <span class="login-stat__label">Appels de fonds</span>
+          </div>
+        </div>
+      </div>
+      <div class="login-split__brand-location">
+        <span class="material-icons-round">location_on</span>
+        Pointe Sarène · Petite Côte du Sénégal
+      </div>
+    </div>
+
+    <!-- PANNEAU DROIT — formulaire -->
+    <div class="login-split__form">
+      <div class="login-form-wrapper">
+
+        <div class="login-form-header">
+          <div class="login-form-avatar">
+            <span class="material-icons-round">admin_panel_settings</span>
+          </div>
+          <h2>Connexion</h2>
+          <p>Entrez vos identifiants pour accéder au panneau d'administration</p>
+        </div>
+
+        {% if form.errors %}
+        <div class="login-alert">
+          <span class="material-icons-round">error_outline</span>
+          <span>Identifiants incorrects. Veuillez réessayer.</span>
+        </div>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+        <div class="login-alert">
+          <span class="material-icons-round">error_outline</span>
+          <span>{{ form.non_field_errors }}</span>
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{{ app_path }}" id="loginForm">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+
+          <div class="login-field">
+            <label for="id_username">
+              <span class="material-icons-round">person</span>
+              Identifiant
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="id_username"
+              autocomplete="username"
+              autofocus
+              required
+              placeholder="Votre identifiant"
+              {% if form.username.value %}value="{{ form.username.value }}"{% endif %}
+            >
+          </div>
+
+          <div class="login-field">
+            <label for="id_password">
+              <span class="material-icons-round">lock</span>
+              Mot de passe
+            </label>
+            <div class="login-field__password">
+              <input
+                type="password"
+                name="password"
+                id="id_password"
+                autocomplete="current-password"
+                required
+                placeholder="Votre mot de passe"
+              >
+              <button type="button" class="toggle-pwd" id="togglePwd" aria-label="Afficher le mot de passe">
+                <span class="material-icons-round" id="toggleIcon">visibility</span>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <span>Se connecter</span>
+            <span class="material-icons-round">arrow_forward</span>
+          </button>
+        </form>
+
+        <div class="login-form-footer">
+          <a href="{% url 'home' %}">
+            <span class="material-icons-round">arrow_back</span>
+            Retour au site
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const togglePwd = document.getElementById('togglePwd');
+    const pwdInput = document.getElementById('id_password');
+    const toggleIcon = document.getElementById('toggleIcon');
+    if (togglePwd) {
+      togglePwd.addEventListener('click', () => {
+        const isText = pwdInput.type === 'text';
+        pwdInput.type = isText ? 'password' : 'text';
+        toggleIcon.textContent = isText ? 'visibility' : 'visibility_off';
+      });
+    }
+  </script>
+</body>
+</html>

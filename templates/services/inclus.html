@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Services inclus | Teranga Aquaville{% endblock %}
+
+{% block content %}
+
+<section class="page-hero page-hero--services">
+  <div class="page-hero__overlay"></div>
+  <div class="container page-hero__content">
+    <span class="section-eyebrow">Pour les résidents</span>
+    <h1>Services inclus</h1>
+    <p>Des équipements de qualité, gratuits pour tous les résidents de Teranga Aquaville</p>
+  </div>
+</section>
+
+<section class="services-inclus section">
+  <div class="container">
+    <div class="services-inclus__grid">
+      {% for service in services %}
+      <div class="service-card" data-aos="fade-up">
+        <div class="service-card__icon">
+          <span class="material-icons-round">{{ service.icone }}</span>
+        </div>
+        <h3>{{ service.nom }}</h3>
+        {% if service.description %}<p>{{ service.description }}</p>{% endif %}
+        <span class="service-card__gratuit">Gratuit</span>
+      </div>
+      {% empty %}
+      <div class="service-card" data-aos="fade-up">
+        <div class="service-card__icon"><span class="material-icons-round">pool</span></div>
+        <h3>Piscine publique</h3>
+        <span class="service-card__gratuit">Gratuit</span>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card__icon"><span class="material-icons-round">sports_soccer</span></div>
+        <h3>Terrain de football homologué</h3>
+        <span class="service-card__gratuit">Gratuit</span>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card__icon"><span class="material-icons-round">sports_basketball</span></div>
+        <h3>Terrain de basketball</h3>
+        <span class="service-card__gratuit">Gratuit</span>
+      </div>
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card__icon"><span class="material-icons-round">fitness_center</span></div>
+        <h3>Salle de sport</h3>
+        <p>Entièrement équipée</p>
+        <span class="service-card__gratuit">Gratuit</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
